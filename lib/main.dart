@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    print("runs");
     return MultiProvider(
       providers: [
         Provider<AuthService>(
@@ -39,6 +40,7 @@ class AuthWrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     final user = context.watch<User>();
     if (user != null) {
+      print("works");
       return Home();
     }
     return SignIn();

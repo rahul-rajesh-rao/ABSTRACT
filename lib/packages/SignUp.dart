@@ -190,17 +190,27 @@ class _SignUpState extends State<SignUp> {
                           final String email = emailController.text.trim();
                           final String password =
                               passwordController.text.trim();
-
                           if (email.isEmpty) {
                             print("enter email");
+                          } else if (password.isEmpty) {
+                            print("password is empty");
                           } else {
-                            if (password.isEmpty) {
-                              print("password is empty");
-                            } else {
-                              context
-                                  .read<AuthService>()
-                                  .signup(email, password);
-                            }
+                            context
+                                .read<AuthService>()
+                                .signup(email, password)
+                                .then((value) async {
+                              User user = FirebaseAuth.instance.currentUser;
+                              await FirebaseFirestore.instance
+                                  .collection("users")
+                                  .doc(user.uid)
+                                  .set({
+                                "uid": user.uid,
+                                "email": email,
+                                "password": password
+                              });
+                            });
+                            print("auth done");
+                            Navigator.pop(context);
                           }
                         },
                         child: Text(

@@ -18,7 +18,6 @@ class _SignInState extends State<SignIn> {
   String password;
 
   @override
-  //lol
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: HexColor("#012A4A"),
@@ -124,7 +123,7 @@ class _SignInState extends State<SignIn> {
                           ),
                           TextButton(
                               onPressed: () {
-                                Navigator.pushReplacement(
+                                Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => SignUp()));
@@ -159,6 +158,7 @@ class _SignInState extends State<SignIn> {
                               context
                                   .read<AuthService>()
                                   .login(email, password);
+                              //Navigator.pop(context);
                             }
                           }
                         },
