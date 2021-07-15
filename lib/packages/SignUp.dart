@@ -4,8 +4,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+<<<<<<< HEAD
 
 import 'package:provider/provider.dart';
+=======
+>>>>>>> 192cb41f9dff62f35eb90aa9a71ec3c614682c67
 
 class SignUp extends StatefulWidget {
   @override
