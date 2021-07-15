@@ -1,6 +1,8 @@
 import 'package:abstract_mp/packages/SignUp.dart';
+import 'package:abstract_mp/services/auth_services.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:provider/provider.dart';
 
 class SignIn extends StatefulWidget {
   @override
@@ -8,10 +10,13 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
+  TextEditingController emailController = new TextEditingController();
+  TextEditingController passwordController = new TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   String email;
   String password;
+
   @override
   //lol
   Widget build(BuildContext context) {
@@ -54,6 +59,7 @@ class _SignInState extends State<SignIn> {
                           hintText: "Email",
                           fillColor: Color(0xF5F1F1).withOpacity(0.4),
                         ),
+                        controller: emailController,
                         onChanged: (val) {
                           email = val;
                         },
@@ -80,6 +86,8 @@ class _SignInState extends State<SignIn> {
                           hintText: "Password",
                           fillColor: Color(0xF5F1F1).withOpacity(0.4),
                         ),
+                        obscureText: true,
+                        controller: passwordController,
                         onChanged: (val) {
                           password = val;
                         },
@@ -137,7 +145,23 @@ class _SignInState extends State<SignIn> {
                         minWidth: 370,
                         shape: RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(30)),
-                        onPressed: () {},
+                        onPressed: () {
+                          final String email = emailController.text.trim();
+                          final String password =
+                              passwordController.text.trim();
+
+                          if (email.isEmpty) {
+                            print("enter email");
+                          } else {
+                            if (password.isEmpty) {
+                              print("password is empty");
+                            } else {
+                              context
+                                  .read<AuthService>()
+                                  .login(email, password);
+                            }
+                          }
+                        },
                         child: Text(
                           "Sign In",
                           style: TextStyle(
