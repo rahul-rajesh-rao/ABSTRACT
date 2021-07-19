@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -17,8 +19,211 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text("HOME"),
+      backgroundColor: HexColor("#012A4A"),
+      appBar: AppBar(
+        backgroundColor: HexColor("#012A4A"),
+      ),
+      body: SizedBox(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        child: Container(
+          margin: EdgeInsets.symmetric(
+            horizontal: 25.0,
+          ),
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 20, 270, 0),
+              child: Text(
+                "Home",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 30,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 25, 180, 0),
+              child: Text(
+                "Choose By Topic",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 20.0),
+              height: 230.0,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: <Widget>[
+                  Container(
+                    width: 160.0,
+                    decoration: BoxDecoration(
+                      color: Colors.red,
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  Container(
+                    width: 160.0,
+                    decoration: BoxDecoration(
+                      color: Colors.blue,
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  Container(
+                    width: 160.0,
+                    decoration: BoxDecoration(
+                      color: Colors.green,
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  Container(
+                    width: 160.0,
+                    decoration: BoxDecoration(
+                      color: Colors.yellow,
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  Container(
+                    width: 160.0,
+                    decoration: BoxDecoration(
+                      color: Colors.orange,
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  Container(
+                    width: 160.0,
+                    decoration: BoxDecoration(
+                      color: Colors.red,
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  Container(
+                    width: 160.0,
+                    decoration: BoxDecoration(
+                      color: Colors.blue,
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  Container(
+                    width: 160.0,
+                    decoration: BoxDecoration(
+                      color: Colors.green,
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  Container(
+                    width: 160.0,
+                    decoration: BoxDecoration(
+                      color: Colors.yellow,
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  Container(
+                    width: 160.0,
+                    decoration: BoxDecoration(
+                      color: Colors.orange,
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  Container(
+                    width: 160.0,
+                    decoration: BoxDecoration(
+                      color: Colors.red,
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  Container(
+                    width: 160.0,
+                    decoration: BoxDecoration(
+                      color: Colors.blue,
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  Container(
+                    width: 160.0,
+                    decoration: BoxDecoration(
+                      color: Colors.green,
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Text(
+              "Made By Your Commrades!",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 24,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 20.0),
+              height: 200.0,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: <Widget>[
+                  Container(
+                    width: 160.0,
+                    decoration: BoxDecoration(
+                      color: Colors.red,
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  Container(
+                    width: 160.0,
+                    decoration: BoxDecoration(
+                      color: Colors.blue,
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  Container(
+                    width: 160.0,
+                    decoration: BoxDecoration(
+                      color: Colors.green,
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  Container(
+                    width: 160.0,
+                    decoration: BoxDecoration(
+                      color: Colors.yellow,
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  Container(
+                    width: 160.0,
+                    decoration: BoxDecoration(
+                      color: Colors.orange,
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ]),
+        ),
       ),
     );
   }

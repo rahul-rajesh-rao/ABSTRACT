@@ -1,4 +1,5 @@
 import 'package:abstract_mp/packages/Home.dart';
+import 'package:abstract_mp/packages/NavScreen.dart';
 import 'package:abstract_mp/packages/SignIn.dart';
 import 'package:abstract_mp/services/auth_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
         )
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         home: AuthWrapper(),
       ),
     );
@@ -41,7 +43,7 @@ class AuthWrapper extends StatelessWidget {
     final user = context.watch<User>();
     if (user != null) {
       print("works");
-      return Home();
+      return NavScreen();
     }
     return SignIn();
   }
