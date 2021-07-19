@@ -1,4 +1,4 @@
-import 'package:abstract_mp/packages/Home.dart';
+import 'package:abstract_mp/packages/NavScreen.dart';
 import 'package:abstract_mp/packages/SignIn.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -13,7 +13,7 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: AuthWrapper());
+    return MaterialApp(debugShowCheckedModeBanner: false, home: AuthWrapper());
   }
 }
 
@@ -24,7 +24,7 @@ class AuthWrapper extends StatelessWidget {
       if (user != null) {
         print("works");
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => Home()));
+            context, MaterialPageRoute(builder: (context) => NavScreen()));
       }
     });
     return SignIn();
