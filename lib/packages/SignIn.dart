@@ -1,8 +1,9 @@
 import 'package:abstract_mp/packages/SignUp.dart';
-import 'package:abstract_mp/services/auth_services.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:provider/provider.dart';
+
+import 'Home.dart';
 
 class SignIn extends StatefulWidget {
   @override
@@ -14,8 +15,8 @@ class _SignInState extends State<SignIn> {
   TextEditingController passwordController = new TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  String email;
-  String password;
+  String email = "";
+  String password = "";
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +42,7 @@ class _SignInState extends State<SignIn> {
                       ),
                       new TextFormField(
                         validator: (val) {
-                          return val.isEmpty ? "Enter the Email" : null;
+                          return val!.isEmpty ? "Enter the Email" : null;
                         },
                         decoration: new InputDecoration(
                           border: new OutlineInputBorder(
@@ -68,7 +69,7 @@ class _SignInState extends State<SignIn> {
                       ),
                       new TextFormField(
                         validator: (val) {
-                          return val.isEmpty ? "Enter the Password" : null;
+                          return val!.isEmpty ? "Enter the Password" : null;
                         },
                         decoration: new InputDecoration(
                           border: new OutlineInputBorder(
@@ -144,21 +145,100 @@ class _SignInState extends State<SignIn> {
                         minWidth: 370,
                         shape: RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(30)),
-                        onPressed: () {
+                        onPressed: () async {
                           final String email = emailController.text.trim();
                           final String password =
                               passwordController.text.trim();
 
                           if (email.isEmpty) {
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Text("Error"),
+                                    content: Text("enter email"),
+                                    actions: [
+                                      TextButton(
+                                        child: Text("Ok"),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      )
+                                    ],
+                                  );
+                                });
                             print("enter email");
                           } else {
                             if (password.isEmpty) {
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: Text("Error"),
+                                      content: Text("password is empty"),
+                                      actions: [
+                                        TextButton(
+                                          child: Text("Ok"),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                        )
+                                      ],
+                                    );
+                                  });
                               print("password is empty");
                             } else {
-                              context
-                                  .read<AuthService>()
-                                  .login(email, password);
-                              //Navigator.pop(context);
+                              try {
+                                UserCredential userCredential =
+                                    await FirebaseAuth.instance
+                                        .signInWithEmailAndPassword(
+                                            email: email, password: password);
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Home()));
+                              } on FirebaseAuthException catch (e) {
+                                if (e.code == 'user-not-found') {
+                                  showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title: Text("Error"),
+                                          content: Text(
+                                              'No user found for that email.'),
+                                          actions: [
+                                            TextButton(
+                                              child: Text("Ok"),
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                            )
+                                          ],
+                                        );
+                                      });
+                                  print('No user found for that email.');
+                                } else if (e.code == 'wrong-password') {
+                                  showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title: Text("Error"),
+                                          content: Text(
+                                              'Wrong password provided for that user.'),
+                                          actions: [
+                                            TextButton(
+                                              child: Text("Ok"),
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                            )
+                                          ],
+                                        );
+                                      });
+                                  print(
+                                      'Wrong password provided for that user.');
+                                }
+                              }
                             }
                           }
                         },

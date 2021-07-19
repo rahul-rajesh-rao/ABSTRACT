@@ -1,10 +1,7 @@
-import 'package:abstract_mp/packages/SignIn.dart';
-import 'package:abstract_mp/services/auth_services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:provider/provider.dart';
 
 class SignUp extends StatefulWidget {
   @override
@@ -16,9 +13,9 @@ class _SignUpState extends State<SignUp> {
   TextEditingController emailController = new TextEditingController();
   TextEditingController passwordController = new TextEditingController();
 
-  String email;
-  String password;
-  String username;
+  String email = "";
+  String password = "";
+  String username = "";
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +42,7 @@ class _SignUpState extends State<SignUp> {
                       ),
                       new TextFormField(
                         validator: (val) {
-                          return val.isEmpty ? "Enter the Username" : null;
+                          return val!.isEmpty ? "Enter the Username" : null;
                         },
                         decoration: new InputDecoration(
                           border: new OutlineInputBorder(
@@ -71,7 +68,7 @@ class _SignUpState extends State<SignUp> {
                       ),
                       new TextFormField(
                         validator: (val) {
-                          return val.isEmpty ? "Enter the Email" : null;
+                          return val!.isEmpty ? "Enter the Email" : null;
                         },
                         decoration: new InputDecoration(
                           border: new OutlineInputBorder(
@@ -98,7 +95,7 @@ class _SignUpState extends State<SignUp> {
                       ),
                       new TextFormField(
                         validator: (val) {
-                          return val.isEmpty ? "Enter the Password" : null;
+                          return val!.isEmpty ? "Enter the Password" : null;
                         },
                         decoration: new InputDecoration(
                           border: new OutlineInputBorder(
@@ -126,7 +123,7 @@ class _SignUpState extends State<SignUp> {
                       ),
                       new TextFormField(
                         validator: (val) {
-                          return val.isEmpty ? "Enter the Password" : null;
+                          return val!.isEmpty ? "Enter the Password" : null;
                         },
                         decoration: new InputDecoration(
                           border: new OutlineInputBorder(
@@ -165,10 +162,7 @@ class _SignUpState extends State<SignUp> {
                           ),
                           TextButton(
                               onPressed: () {
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => SignIn()));
+                                Navigator.pop(context);
                               },
                               child: Text(
                                 "Sign In",
@@ -186,31 +180,106 @@ class _SignUpState extends State<SignUp> {
                         minWidth: 370,
                         shape: RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(30)),
-                        onPressed: () {
+                        onPressed: () async {
                           final String email = emailController.text.trim();
                           final String password =
                               passwordController.text.trim();
                           if (email.isEmpty) {
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Text("Error"),
+                                    content: Text("enter email"),
+                                    actions: [
+                                      TextButton(
+                                        child: Text("Ok"),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      )
+                                    ],
+                                  );
+                                });
                             print("enter email");
                           } else if (password.isEmpty) {
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Text("Error"),
+                                    content: Text("password is empty"),
+                                    actions: [
+                                      TextButton(
+                                        child: Text("Ok"),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      )
+                                    ],
+                                  );
+                                });
                             print("password is empty");
                           } else {
-                            context
-                                .read<AuthService>()
-                                .signup(email, password)
-                                .then((value) async {
-                              User user = FirebaseAuth.instance.currentUser;
+                            try {
+                              UserCredential userCredential = await FirebaseAuth
+                                  .instance
+                                  .createUserWithEmailAndPassword(
+                                      email: email, password: password);
+                              User? user = FirebaseAuth.instance.currentUser;
                               await FirebaseFirestore.instance
                                   .collection("users")
-                                  .doc(user.uid)
+                                  .doc(user!.uid)
                                   .set({
                                 "uid": user.uid,
                                 "email": email,
                                 "password": password
                               });
-                            });
+                            } on FirebaseAuthException catch (e) {
+                              if (e.code == 'weak-password') {
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        title: Text("Error"),
+                                        content: Text(
+                                            'The password provided is too weak.'),
+                                        actions: [
+                                          TextButton(
+                                            child: Text("Ok"),
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                          )
+                                        ],
+                                      );
+                                    });
+                                print('The password provided is too weak.');
+                              } else if (e.code == 'email-already-in-use') {
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        title: Text("Error"),
+                                        content: Text(
+                                            'The account already exists for that email.'),
+                                        actions: [
+                                          TextButton(
+                                            child: Text("Ok"),
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                          )
+                                        ],
+                                      );
+                                    });
+                                print(
+                                    'The account already exists for that email.');
+                              }
+                            } catch (e) {
+                              print(e);
+                            }
                             print("auth done");
-                            Navigator.pop(context);
                           }
                         },
                         child: Text(
