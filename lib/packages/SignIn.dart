@@ -193,10 +193,6 @@ class _SignInState extends State<SignIn> {
                                     await FirebaseAuth.instance
                                         .signInWithEmailAndPassword(
                                             email: email, password: password);
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => Home()));
                               } on FirebaseAuthException catch (e) {
                                 if (e.code == 'user-not-found') {
                                   showDialog(
