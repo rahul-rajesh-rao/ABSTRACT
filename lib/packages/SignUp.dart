@@ -45,7 +45,9 @@ class _SignUpState extends State<SignUp> {
                           return val!.isEmpty ? "Enter the Username" : null;
                         },
                         decoration: new InputDecoration(
-                          border: new OutlineInputBorder(
+                          focusedBorder: new OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Colors.white, width: 2.0),
                             borderRadius: const BorderRadius.all(
                               const Radius.circular(15.0),
                             ),
@@ -71,7 +73,9 @@ class _SignUpState extends State<SignUp> {
                           return val!.isEmpty ? "Enter the Email" : null;
                         },
                         decoration: new InputDecoration(
-                          border: new OutlineInputBorder(
+                          focusedBorder: new OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Colors.white, width: 2.0),
                             borderRadius: const BorderRadius.all(
                               const Radius.circular(15.0),
                             ),
@@ -98,7 +102,9 @@ class _SignUpState extends State<SignUp> {
                           return val!.isEmpty ? "Enter the Password" : null;
                         },
                         decoration: new InputDecoration(
-                          border: new OutlineInputBorder(
+                          focusedBorder: new OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Colors.white, width: 2.0),
                             borderRadius: const BorderRadius.all(
                               const Radius.circular(15.0),
                             ),
@@ -126,7 +132,9 @@ class _SignUpState extends State<SignUp> {
                           return val!.isEmpty ? "Enter the Password" : null;
                         },
                         decoration: new InputDecoration(
-                          border: new OutlineInputBorder(
+                          focusedBorder: new OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Colors.white, width: 2.0),
                             borderRadius: const BorderRadius.all(
                               const Radius.circular(15.0),
                             ),

@@ -1,3 +1,4 @@
+import 'package:abstract_mp/packages/Difficulty.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
@@ -57,11 +58,19 @@ class _HomeState extends State<Home> {
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: <Widget>[
-                  Container(
-                    width: 160.0,
-                    decoration: BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.circular(20.0),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Difficulty()));
+                    },
+                    child: Container(
+                      width: 160.0,
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
                     ),
                   ),
                   SizedBox(width: 10),

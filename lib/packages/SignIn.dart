@@ -41,11 +41,18 @@ class _SignInState extends State<SignIn> {
                         height: 230,
                       ),
                       new TextFormField(
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 21,
+                          fontWeight: FontWeight.w600,
+                        ),
                         validator: (val) {
                           return val!.isEmpty ? "Enter the Email" : null;
                         },
                         decoration: new InputDecoration(
-                          border: new OutlineInputBorder(
+                          focusedBorder: new OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Colors.white, width: 2.0),
                             borderRadius: const BorderRadius.all(
                               const Radius.circular(15.0),
                             ),
@@ -68,11 +75,17 @@ class _SignInState extends State<SignIn> {
                         height: 7,
                       ),
                       new TextFormField(
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 21,
+                        ),
                         validator: (val) {
                           return val!.isEmpty ? "Enter the Password" : null;
                         },
                         decoration: new InputDecoration(
-                          border: new OutlineInputBorder(
+                          focusedBorder: new OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Colors.white, width: 2.0),
                             borderRadius: const BorderRadius.all(
                               const Radius.circular(15.0),
                             ),
