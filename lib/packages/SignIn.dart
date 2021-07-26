@@ -23,6 +23,10 @@ class _SignInState extends State<SignIn> {
     return Scaffold(
         backgroundColor: HexColor("#012A4A"),
         appBar: AppBar(
+          title: Image.asset(
+            'assets/Abstract_logo.png',
+            scale: 5.0,
+          ),
           backgroundColor: HexColor("#012A4A"),
           elevation: 0,
         ),

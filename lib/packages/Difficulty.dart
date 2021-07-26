@@ -1,13 +1,18 @@
 import 'package:abstract_mp/packages/Quiz.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'Api.dart';
 
 class Difficulty extends StatefulWidget {
+  final String topic, tpid;
+  Difficulty(this.topic, this.tpid);
   @override
   _DifficultyState createState() => _DifficultyState();
 }
 
 class _DifficultyState extends State<Difficulty> {
+  late final questions;
+  List<bool> selected = [false, false, false];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +32,7 @@ class _DifficultyState extends State<Difficulty> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text("SCIENCE",
+                        child: Text(widget.topic,
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 25,
@@ -57,8 +62,15 @@ class _DifficultyState extends State<Difficulty> {
                               color: Colors.black,
                             ),
                           ),
-                          color: Colors.white,
-                          onPressed: () {},
+                          color: selected[0] ? Colors.blue[700] : Colors.white,
+                          onPressed: () {
+                            print("lol");
+                            questions = Api(widget.tpid, "easy");
+                            questions.getJson();
+                            setState(() {
+                              selected = [true, false, false];
+                            });
+                          },
                         ),
                       ),
                       Padding(
@@ -72,8 +84,15 @@ class _DifficultyState extends State<Difficulty> {
                             "Medium",
                             style: TextStyle(fontSize: 24, color: Colors.black),
                           ),
-                          color: Colors.white,
-                          onPressed: () {},
+                          color: selected[1] ? Colors.blue[700] : Colors.white,
+                          onPressed: () {
+                            print("lol");
+                            questions = Api(widget.tpid, "medium");
+                            questions.getJson();
+                            setState(() {
+                              selected = [false, true, false];
+                            });
+                          },
                         ),
                       ),
                       Padding(
@@ -90,8 +109,15 @@ class _DifficultyState extends State<Difficulty> {
                               color: Colors.black,
                             ),
                           ),
-                          color: Colors.white,
-                          onPressed: () {},
+                          color: selected[2] ? Colors.blue[700] : Colors.white,
+                          onPressed: () {
+                            print("lol");
+                            questions = Api(widget.tpid, "hard");
+                            questions.getJson();
+                            setState(() {
+                              selected = [false, false, true];
+                            });
+                          },
                         ),
                       ),
                       SizedBox(
@@ -116,7 +142,8 @@ class _DifficultyState extends State<Difficulty> {
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => Quiz()));
+                                    builder: (context) =>
+                                        Quiz(questions.value)));
                           },
                         ),
                       )
