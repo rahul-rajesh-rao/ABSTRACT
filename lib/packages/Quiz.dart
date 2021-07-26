@@ -191,6 +191,24 @@ class _QuizState extends State<Quiz> {
                 });
               },
             ),
+            SizedBox(
+              height: 20,
+            ),
+            MaterialButton(
+              height: 58,
+              minWidth: 370,
+              shape: RoundedRectangleBorder(
+                  side: BorderSide(color: Colors.white, width: 2),
+                  borderRadius: new BorderRadius.circular(15)),
+              child: Text(
+                "Option 4",
+                style: TextStyle(
+                  fontSize: 24,
+                  color: Colors.white,
+                ),
+              ),
+              onPressed: () {},
+            ),
             Padding(
               padding:
                   const EdgeInsets.symmetric(vertical: 15, horizontal: 60.0),

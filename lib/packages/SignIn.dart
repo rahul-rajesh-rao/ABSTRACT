@@ -54,7 +54,7 @@ class _SignInState extends State<SignIn> {
                           return val!.isEmpty ? "Enter the Email" : null;
                         },
                         decoration: new InputDecoration(
-                          focusedBorder: new OutlineInputBorder(
+                          border: new OutlineInputBorder(
                             borderSide: const BorderSide(
                                 color: Colors.white, width: 2.0),
                             borderRadius: const BorderRadius.all(
@@ -87,7 +87,7 @@ class _SignInState extends State<SignIn> {
                           return val!.isEmpty ? "Enter the Password" : null;
                         },
                         decoration: new InputDecoration(
-                          focusedBorder: new OutlineInputBorder(
+                          border: new OutlineInputBorder(
                             borderSide: const BorderSide(
                                 color: Colors.white, width: 2.0),
                             borderRadius: const BorderRadius.all(
