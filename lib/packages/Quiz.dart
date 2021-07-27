@@ -1,10 +1,10 @@
+import 'package:abstract_mp/packages/Celebration.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'Question.dart';
 import 'package:html_character_entities/html_character_entities.dart';
 
 class Quiz extends StatefulWidget {
-  final List<Question> questions;
+  final List<dynamic> questions;
   Quiz(this.questions);
   @override
   _QuizState createState() => _QuizState();
@@ -191,24 +191,6 @@ class _QuizState extends State<Quiz> {
                 });
               },
             ),
-            SizedBox(
-              height: 20,
-            ),
-            MaterialButton(
-              height: 58,
-              minWidth: 370,
-              shape: RoundedRectangleBorder(
-                  side: BorderSide(color: Colors.white, width: 2),
-                  borderRadius: new BorderRadius.circular(15)),
-              child: Text(
-                "Option 4",
-                style: TextStyle(
-                  fontSize: 24,
-                  color: Colors.white,
-                ),
-              ),
-              onPressed: () {},
-            ),
             Padding(
               padding:
                   const EdgeInsets.symmetric(vertical: 15, horizontal: 60.0),
@@ -227,9 +209,14 @@ class _QuizState extends State<Quiz> {
                   color: Colors.white,
                   onPressed: () {
                     setState(() {
-                      print(points);
-                      questionNo += 1;
+                      if (questionNo < 10) questionNo += 1;
                       selected = false;
+                      if (questionNo == 10) {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Celebration(points)));
+                      }
                     });
                   }),
             ),

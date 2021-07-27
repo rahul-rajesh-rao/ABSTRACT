@@ -1,12 +1,9 @@
-import 'package:abstract_mp/models/question_model.dart';
 import 'package:abstract_mp/packages/Difficulty.dart';
 import 'package:abstract_mp/packages/Start_quiz.dart';
-import 'package:abstract_mp/service/database_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -764,7 +761,7 @@ class quizTile extends StatelessWidget {
         ),
         onTap: () {
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => startQuiz(quizId)));
+              MaterialPageRoute(builder: (context) => StartQuiz(quizId)));
         },
       ),
     );

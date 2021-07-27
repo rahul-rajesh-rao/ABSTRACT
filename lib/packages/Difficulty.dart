@@ -1,7 +1,6 @@
-import 'package:abstract_mp/packages/Quiz.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'Api.dart';
+import 'Loader.dart';
 
 class Difficulty extends StatefulWidget {
   final String topic, tpid;
@@ -11,7 +10,7 @@ class Difficulty extends StatefulWidget {
 }
 
 class _DifficultyState extends State<Difficulty> {
-  late final questions;
+  late var difficulty;
   List<bool> selected = [false, false, false];
   @override
   Widget build(BuildContext context) {
@@ -65,8 +64,7 @@ class _DifficultyState extends State<Difficulty> {
                           color: selected[0] ? Colors.blue[700] : Colors.white,
                           onPressed: () {
                             print("lol");
-                            questions = Api(widget.tpid, "easy");
-                            questions.getJson();
+                            difficulty = "easy";
                             setState(() {
                               selected = [true, false, false];
                             });
@@ -87,8 +85,7 @@ class _DifficultyState extends State<Difficulty> {
                           color: selected[1] ? Colors.blue[700] : Colors.white,
                           onPressed: () {
                             print("lol");
-                            questions = Api(widget.tpid, "medium");
-                            questions.getJson();
+                            difficulty = "medium";
                             setState(() {
                               selected = [false, true, false];
                             });
@@ -112,8 +109,7 @@ class _DifficultyState extends State<Difficulty> {
                           color: selected[2] ? Colors.blue[700] : Colors.white,
                           onPressed: () {
                             print("lol");
-                            questions = Api(widget.tpid, "hard");
-                            questions.getJson();
+                            difficulty = "hard";
                             setState(() {
                               selected = [false, false, true];
                             });
@@ -143,7 +139,7 @@ class _DifficultyState extends State<Difficulty> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        Quiz(questions.value)));
+                                        Loader(widget.tpid, difficulty)));
                           },
                         ),
                       )
