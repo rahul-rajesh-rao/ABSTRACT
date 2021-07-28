@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'NavScreen.dart';
 
 class SignUp extends StatefulWidget {
   @override
@@ -12,9 +13,11 @@ class _SignUpState extends State<SignUp> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController emailController = new TextEditingController();
   TextEditingController passwordController = new TextEditingController();
+  TextEditingController repasswordController = new TextEditingController();
 
   String email = "";
   String password = "";
+  String rePassword = "";
   String username = "";
 
   @override
@@ -148,8 +151,10 @@ class _SignUpState extends State<SignUp> {
                           hintText: "Enter Password again",
                           fillColor: Color(0xF5F1F1).withOpacity(0.4),
                         ),
+                        obscureText: true,
+                        controller: repasswordController,
                         onChanged: (val) {
-                          password = val;
+                          rePassword = val;
                         },
                       ),
                       SizedBox(
@@ -228,22 +233,48 @@ class _SignUpState extends State<SignUp> {
                                   );
                                 });
                             print("password is empty");
+                          } else if (password != rePassword) {
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Text("Error"),
+                                    content: Text("password doesn't match"),
+                                    actions: [
+                                      TextButton(
+                                        child: Text("Ok"),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      )
+                                    ],
+                                  );
+                                });
+                            print("password doesn't match");
                           } else {
                             try {
                               UserCredential userCredential = await FirebaseAuth
                                   .instance
                                   .createUserWithEmailAndPassword(
-                                      email: email, password: password);
+                                email: email,
+                                password: password,
+                              );
                               User? user = FirebaseAuth.instance.currentUser;
+                              await user!.updateDisplayName(username);
+                              await user.reload();
                               await FirebaseFirestore.instance
                                   .collection("users")
-                                  .doc(user!.uid)
+                                  .doc(user.uid)
                                   .set({
-                                "username":username,
+                                "username": username,
                                 "uid": user.uid,
                                 "email": email,
                                 "password": password
                               });
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => NavScreen()));
                             } on FirebaseAuthException catch (e) {
                               if (e.code == 'weak-password') {
                                 showDialog(
