@@ -472,7 +472,7 @@ class _HomeState extends State<Home> {
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  Difficulty("Gadgets", "30")));
+                                  Difficulty("Mythology", "20")));
                     },
                     child: Container(
                       width: 160.0,
@@ -484,7 +484,7 @@ class _HomeState extends State<Home> {
                             child: Padding(
                               padding: EdgeInsets.fromLTRB(0, 180, 0, 0),
                               child: Text(
-                                'Gadgets',
+                                'Mythology',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     color: HexColor('#ffffff'),
@@ -508,7 +508,8 @@ class _HomeState extends State<Home> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => Difficulty("Arts", "25")));
+                              builder: (context) =>
+                                  Difficulty("Cartoons", "32")));
                     },
                     child: Container(
                       width: 160.0,
@@ -520,7 +521,7 @@ class _HomeState extends State<Home> {
                             child: Padding(
                               padding: EdgeInsets.fromLTRB(0, 180, 0, 0),
                               child: Text(
-                                'Arts',
+                                'Cartoons',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     color: HexColor('#ffffff'),

@@ -11,13 +11,14 @@ class Quiz extends StatefulWidget {
 }
 
 class _QuizState extends State<Quiz> {
-  int questionNo = 1, points = 0;
+  int questionNo = 1, points = 0, totQues = 0;
   Color color = Colors.lightGreenAccent[700]!.withOpacity(0.9),
       color1 = Colors.redAccent[700]!.withOpacity(0.9),
       color2 = Colors.lightGreenAccent[700]!.withOpacity(0.0);
   bool selected = false;
   @override
   Widget build(BuildContext context) {
+    totQues = widget.questions.length;
     return Scaffold(
       backgroundColor: HexColor("#012A4A"),
       appBar: AppBar(
@@ -41,7 +42,7 @@ class _QuizState extends State<Quiz> {
                       fontSize: 25,
                       fontWeight: FontWeight.w600,
                     )),
-                Text("$questionNo/10 ",
+                Text("$questionNo/$totQues ",
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 25,
@@ -208,16 +209,18 @@ class _QuizState extends State<Quiz> {
                   ),
                   color: Colors.white,
                   onPressed: () {
-                    setState(() {
-                      if (questionNo < 10) questionNo += 1;
-                      selected = false;
-                      if (questionNo == 10) {
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => Celebration(points)));
-                      }
-                    });
+                    if (questionNo <= 10) questionNo += 1;
+                    if (questionNo > totQues) {
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Celebration(points)));
+                    }
+                    if (questionNo <= totQues) {
+                      setState(() {
+                        selected = false;
+                      });
+                    }
                   }),
             ),
           ]),

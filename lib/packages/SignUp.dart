@@ -239,6 +239,7 @@ class _SignUpState extends State<SignUp> {
                                   .collection("users")
                                   .doc(user!.uid)
                                   .set({
+                                "username":username,
                                 "uid": user.uid,
                                 "email": email,
                                 "password": password
