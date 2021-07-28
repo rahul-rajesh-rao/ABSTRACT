@@ -17,7 +17,7 @@ class _NavScreenState extends State<NavScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: CurvedNavigationBar(
-        height: 60.0,
+        height: 50.0,
         index: _selectedIndex,
         items: <Widget>[
           Icon(Icons.home, size: 30),
@@ -27,7 +27,7 @@ class _NavScreenState extends State<NavScreen> {
         color: Colors.white,
         buttonBackgroundColor: Colors.white,
         backgroundColor: Colors.blueAccent,
-        animationCurve: Curves.easeInOut,
+        animationCurve: Curves.bounceInOut,
         animationDuration: Duration(milliseconds: 500),
         onTap: (index) {
           setState(() {
