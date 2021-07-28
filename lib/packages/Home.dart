@@ -93,8 +93,11 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         title: Padding(
           padding: const EdgeInsets.all(0.0),
-          child: SvgPicture.asset("assets/Abstract_logo.svg",
-              height: 30.0, width: 30.0),
+          child: SvgPicture.asset(
+            "assets/Abstract_logo.svg",
+            height: 20.0,
+            width: 30,
+          ),
         ),
         backgroundColor: HexColor("#012A4A"),
         elevation: 0,

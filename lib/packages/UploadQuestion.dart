@@ -1,3 +1,4 @@
+import 'package:abstract_mp/packages/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:abstract_mp/service/database_service.dart';
 
@@ -41,7 +42,7 @@ class _UploadQuestionState extends State<UploadQuestion> {
           } else if (snapshot.hasError) {
             return Text('${snapshot.error}');
           }
-          return Container(child: Center(child: CircularProgressIndicator()));
+          return loading();
         });
   }
 }

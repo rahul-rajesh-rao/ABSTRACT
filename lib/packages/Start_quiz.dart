@@ -1,4 +1,5 @@
 import 'package:abstract_mp/packages/apiquestionmodel.dart';
+import 'package:abstract_mp/packages/loading.dart';
 import 'package:abstract_mp/service/database_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -52,7 +53,7 @@ class _StartQuizState extends State<StartQuiz> {
           } else if (snapshot.hasError) {
             return Text('${snapshot.error}');
           }
-          return Container(child: Center(child: CircularProgressIndicator()));
+          return loading();
         });
   }
 }

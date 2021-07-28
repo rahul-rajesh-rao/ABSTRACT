@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:abstract_mp/packages/loading.dart';
+
 import "QuestionModel.dart";
 import 'Question.dart';
 import "package:http/http.dart" as http;
@@ -55,7 +57,7 @@ class _LoaderState extends State<Loader> {
           } else if (snapshot.hasError) {
             return Text('${snapshot.error}');
           }
-          return Container(child: Center(child: CircularProgressIndicator()));
+          return loading();
         });
   }
 }

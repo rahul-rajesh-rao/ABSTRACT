@@ -18,6 +18,7 @@ class _DifficultyState extends State<Difficulty> {
         backgroundColor: HexColor("#012A4A"),
         appBar: AppBar(
           backgroundColor: HexColor("#012A4A"),
+          elevation: 0,
         ),
         body: SizedBox(
             width: MediaQuery.of(context).size.width,

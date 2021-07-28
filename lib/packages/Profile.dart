@@ -1,4 +1,5 @@
 import 'package:abstract_mp/packages/SignIn.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -14,6 +15,7 @@ class _ProfileState extends State<Profile> {
     return Scaffold(
         backgroundColor: HexColor("#012A4A"),
         appBar: AppBar(
+          elevation: 0,
           backgroundColor: HexColor("#012A4A"),
         ),
         body: SizedBox(
@@ -38,7 +40,7 @@ class _ProfileState extends State<Profile> {
                   ),
                 ),
                 SizedBox(
-                  height: 400,
+                  height: 450,
                 ),
                 MaterialButton(
                   height: 58,
