@@ -481,7 +481,7 @@ class _HomeState extends State<Home> {
                       width: 160.0,
                       child: Stack(
                         children: <Widget>[
-                          SvgPicture.asset('assets/Gadget.svg'),
+                          SvgPicture.asset('assets/Mythology.svg'),
                           SizedBox(height: 10),
                           Center(
                             child: Padding(
@@ -518,7 +518,7 @@ class _HomeState extends State<Home> {
                       width: 160.0,
                       child: Stack(
                         children: <Widget>[
-                          SvgPicture.asset('assets/Art.svg'),
+                          SvgPicture.asset('assets/Cartoon.svg'),
                           SizedBox(height: 10),
                           Center(
                             child: Padding(
@@ -747,14 +747,19 @@ class quizTile extends StatelessWidget {
       child: GestureDetector(
         child: Container(
           child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-            SizedBox(
-              height: 140,
+            // SizedBox(
+            //   height: 1,
+            // ),
+            SvgPicture.asset(
+              'assets/Custom.svg',
+              height: 150,
             ),
             Text(quizTitle,
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
+                  fontFamily: 'Montserrat',
                 ))
           ]),
           width: 160.0,

@@ -1,5 +1,6 @@
 import 'package:abstract_mp/packages/Questions.dart';
 import 'package:abstract_mp/service/database_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
@@ -36,6 +37,7 @@ class _CreateState extends State<Create> {
         "quizTitle": quizTitle,
         "quizDifficulty": quizDifficulty,
         "quizId": quizId,
+        "createdBy": FirebaseAuth.instance.currentUser!.displayName,
       };
 
       // databaseService.addQuizData(quizData, quizId).then((value) {
