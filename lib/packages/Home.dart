@@ -629,7 +629,7 @@ class _HomeState extends State<Home> {
             ),
             Container(
               margin: EdgeInsets.symmetric(vertical: 20.0),
-              height: 180.0,
+              height: 200.0,
               child: quizList(),
               // child: StreamBuilder<QuerySnapshot>(
               //   stream: quizStream,
@@ -751,9 +751,11 @@ class quizTile extends StatelessWidget {
               height: 140,
             ),
             Text(quizTitle,
+                textAlign: TextAlign.center,
+                maxLines: 2,
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 18,
+                  fontSize: 20,
                   fontWeight: FontWeight.w600,
                 ))
           ]),

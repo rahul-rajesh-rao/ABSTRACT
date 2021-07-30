@@ -60,6 +60,7 @@ class _DifficultyState extends State<Difficulty> {
                             style: TextStyle(
                               fontSize: 24,
                               color: Colors.black,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
                           color: selected[0] ? Colors.blue[700] : Colors.white,
@@ -81,7 +82,11 @@ class _DifficultyState extends State<Difficulty> {
                               borderRadius: new BorderRadius.circular(30)),
                           child: Text(
                             "Medium",
-                            style: TextStyle(fontSize: 24, color: Colors.black),
+                            style: TextStyle(
+                              fontSize: 24,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                           color: selected[1] ? Colors.blue[700] : Colors.white,
                           onPressed: () {
@@ -105,6 +110,7 @@ class _DifficultyState extends State<Difficulty> {
                             style: TextStyle(
                               fontSize: 24,
                               color: Colors.black,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
                           color: selected[2] ? Colors.blue[700] : Colors.white,
@@ -132,6 +138,7 @@ class _DifficultyState extends State<Difficulty> {
                             style: TextStyle(
                               fontSize: 24,
                               color: Colors.black,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
                           color: Colors.white,
