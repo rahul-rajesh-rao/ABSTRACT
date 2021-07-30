@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:abstract_mp/packages/NavScreen.dart';
 import 'package:abstract_mp/packages/SignIn.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -13,7 +15,12 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false, home: AuthWrapper());
+    return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          fontFamily: "Montserrat",
+        ),
+        home: AuthWrapper());
   }
 }
 
@@ -37,3 +44,9 @@ class _AuthWrapperState extends State<AuthWrapper> {
     return Container(child: Center(child: CircularProgressIndicator()));
   }
 }
+// TODO 
+// SET CONDITION FOR THE TIMER,CHECK STATE AND DISPOSE ISSUE
+// ANIMATION SHOULD RESTART ON PRESS 
+// SVG WORK 
+// PAGE REROUTING ,DUPLICATE CELEBRATION PAGE
+// PROFILE DETAILS

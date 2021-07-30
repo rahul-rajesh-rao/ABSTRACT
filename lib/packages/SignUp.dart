@@ -38,17 +38,29 @@ class _SignUpState extends State<SignUp> {
                     horizontal: 25.0,
                   ),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    // mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SizedBox(
-                        height: 100,
+                        height: 90,
+                      ),
+                      Image.asset(
+                        'assets/Abstract_logo.png',
+                        scale: 3.0,
+                      ),
+                      SizedBox(
+                        height: 50,
                       ),
                       new TextFormField(
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                        ),
                         validator: (val) {
                           return val!.isEmpty ? "Enter the Username" : null;
                         },
                         decoration: new InputDecoration(
-                          focusedBorder: new OutlineInputBorder(
+                          border: new OutlineInputBorder(
                             borderSide: const BorderSide(
                                 color: Colors.white, width: 2.0),
                             borderRadius: const BorderRadius.all(
@@ -58,7 +70,7 @@ class _SignUpState extends State<SignUp> {
                           filled: true,
                           hintStyle: new TextStyle(
                               color: Colors.white,
-                              fontSize: 21,
+                              fontSize: 20,
                               fontWeight: FontWeight.w600,
                               letterSpacing: 0.5),
                           hintText: "Username",
@@ -72,11 +84,16 @@ class _SignUpState extends State<SignUp> {
                         height: 7,
                       ),
                       new TextFormField(
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                        ),
                         validator: (val) {
                           return val!.isEmpty ? "Enter the Email" : null;
                         },
                         decoration: new InputDecoration(
-                          focusedBorder: new OutlineInputBorder(
+                          border: new OutlineInputBorder(
                             borderSide: const BorderSide(
                                 color: Colors.white, width: 2.0),
                             borderRadius: const BorderRadius.all(
@@ -86,7 +103,7 @@ class _SignUpState extends State<SignUp> {
                           filled: true,
                           hintStyle: new TextStyle(
                               color: Colors.white,
-                              fontSize: 21,
+                              fontSize: 20,
                               fontWeight: FontWeight.w600,
                               letterSpacing: 0.5),
                           hintText: "Email",
@@ -101,11 +118,16 @@ class _SignUpState extends State<SignUp> {
                         height: 7,
                       ),
                       new TextFormField(
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                        ),
                         validator: (val) {
                           return val!.isEmpty ? "Enter the Password" : null;
                         },
                         decoration: new InputDecoration(
-                          focusedBorder: new OutlineInputBorder(
+                          border: new OutlineInputBorder(
                             borderSide: const BorderSide(
                                 color: Colors.white, width: 2.0),
                             borderRadius: const BorderRadius.all(
@@ -115,7 +137,7 @@ class _SignUpState extends State<SignUp> {
                           filled: true,
                           hintStyle: new TextStyle(
                               color: Colors.white,
-                              fontSize: 21,
+                              fontSize: 20,
                               fontWeight: FontWeight.w600,
                               letterSpacing: 0.5),
                           hintText: "Password",
@@ -131,11 +153,16 @@ class _SignUpState extends State<SignUp> {
                         height: 7,
                       ),
                       new TextFormField(
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                        ),
                         validator: (val) {
                           return val!.isEmpty ? "Enter the Password" : null;
                         },
                         decoration: new InputDecoration(
-                          focusedBorder: new OutlineInputBorder(
+                          border: new OutlineInputBorder(
                             borderSide: const BorderSide(
                                 color: Colors.white, width: 2.0),
                             borderRadius: const BorderRadius.all(
@@ -145,7 +172,7 @@ class _SignUpState extends State<SignUp> {
                           filled: true,
                           hintStyle: new TextStyle(
                               color: Colors.white,
-                              fontSize: 21,
+                              fontSize: 20,
                               fontWeight: FontWeight.w600,
                               letterSpacing: 0.5),
                           hintText: "Enter Password again",
@@ -327,6 +354,7 @@ class _SignUpState extends State<SignUp> {
                           style: TextStyle(
                             fontSize: 24,
                             color: Colors.black,
+                            fontWeight: FontWeight.w600,
                           ),
                         ),
                         color: Colors.white,

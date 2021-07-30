@@ -55,6 +55,7 @@ class _CreateState extends State<Create> {
     return Scaffold(
         backgroundColor: HexColor("#012A4A"),
         appBar: AppBar(
+          elevation: 0,
           backgroundColor: HexColor("#012A4A"),
         ),
         body:
@@ -85,7 +86,7 @@ class _CreateState extends State<Create> {
                       child: Text("Create Quiz ",
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 25,
+                            fontSize: 24,
                             fontWeight: FontWeight.w600,
                           )),
                     ),
@@ -174,6 +175,7 @@ class _CreateState extends State<Create> {
                             style: TextStyle(
                               fontSize: 24,
                               color: Colors.black,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
                           color: Colors.white,

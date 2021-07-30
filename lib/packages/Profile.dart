@@ -1,4 +1,5 @@
 import 'package:abstract_mp/packages/SignIn.dart';
+import 'package:abstract_mp/packages/play.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -14,33 +15,68 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: HexColor("#012A4A"),
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: HexColor("#012A4A"),
-        ),
+        // appBar: AppBar(
+        //   elevation: 0,
+        //   backgroundColor: HexColor("#012A4A"),
+        // ),
         body: SizedBox(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: Container(
-            margin: EdgeInsets.symmetric(
-              horizontal: 25.0,
-            ),
+            // margin: EdgeInsets.symmetric(
+            //   horizontal: 25.0,
+            // ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    "PROFILE ",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 25,
-                      fontWeight: FontWeight.w600,
+                Container(
+                    height: 550,
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Colors.blue,
+                            Colors.cyan,
+                            Colors.white,
+                          ]),
+                      borderRadius: BorderRadius.only(
+                          bottomRight: Radius.circular(45.0),
+                          bottomLeft: Radius.circular(45.0)),
                     ),
-                  ),
-                ),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 55, 0, 65),
+                          child: Text(
+                            "PROFILE ",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 25,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                        Center(
+                          child: CircleAvatar(
+                            backgroundColor: Colors.white,
+                            radius: 95,
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                        Text(
+                          "Username ",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 23,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ],
+                    )),
                 SizedBox(
-                  height: 450,
+                  height: 80,
                 ),
                 MaterialButton(
                   height: 58,
@@ -52,6 +88,7 @@ class _ProfileState extends State<Profile> {
                     style: TextStyle(
                       fontSize: 24,
                       color: Colors.black,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                   color: Colors.white,

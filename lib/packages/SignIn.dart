@@ -23,10 +23,6 @@ class _SignInState extends State<SignIn> {
     return Scaffold(
         backgroundColor: HexColor("#012A4A"),
         appBar: AppBar(
-          title: Image.asset(
-            'assets/Abstract_logo.png',
-            scale: 5.0,
-          ),
           backgroundColor: HexColor("#012A4A"),
           elevation: 0,
         ),
@@ -42,12 +38,19 @@ class _SignInState extends State<SignIn> {
                   child: Column(
                     children: [
                       SizedBox(
-                        height: 230,
+                        height: 90,
+                      ),
+                      Image.asset(
+                        'assets/Abstract_logo.png',
+                        scale: 3.0,
+                      ),
+                      SizedBox(
+                        height: 100,
                       ),
                       new TextFormField(
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 21,
+                          fontSize: 18,
                           fontWeight: FontWeight.w600,
                         ),
                         validator: (val) {
@@ -64,7 +67,7 @@ class _SignInState extends State<SignIn> {
                           filled: true,
                           hintStyle: new TextStyle(
                               color: Colors.white,
-                              fontSize: 21,
+                              fontSize: 20,
                               fontWeight: FontWeight.w600,
                               letterSpacing: 0.5),
                           hintText: "Email",
@@ -81,7 +84,7 @@ class _SignInState extends State<SignIn> {
                       new TextFormField(
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 21,
+                          fontSize: 18,
                         ),
                         validator: (val) {
                           return val!.isEmpty ? "Enter the Password" : null;
@@ -97,7 +100,7 @@ class _SignInState extends State<SignIn> {
                           filled: true,
                           hintStyle: new TextStyle(
                               color: Colors.white,
-                              fontSize: 21,
+                              fontSize: 20,
                               fontWeight: FontWeight.w600,
                               letterSpacing: 0.5),
                           hintText: "Password",
@@ -126,7 +129,7 @@ class _SignInState extends State<SignIn> {
                           ),
                         ),
                       ),
-                      // SizedBox(height: 140),
+                      SizedBox(height: 10),
                       Row(
                         children: [
                           Padding(
@@ -264,6 +267,7 @@ class _SignInState extends State<SignIn> {
                           style: TextStyle(
                             fontSize: 24,
                             color: Colors.black,
+                            fontWeight: FontWeight.w600,
                           ),
                         ),
                         color: Colors.white,
