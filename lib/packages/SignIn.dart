@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
+import 'NavScreen.dart';
+
 class SignIn extends StatefulWidget {
   @override
   _SignInState createState() => _SignInState();
@@ -214,6 +216,10 @@ class _SignInState extends State<SignIn> {
                                     await FirebaseAuth.instance
                                         .signInWithEmailAndPassword(
                                             email: email, password: password);
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => NavScreen()));
                               } on FirebaseAuthException catch (e) {
                                 if (e.code == 'user-not-found') {
                                   showDialog(

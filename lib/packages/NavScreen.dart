@@ -11,8 +11,7 @@ class NavScreen extends StatefulWidget {
 
 class _NavScreenState extends State<NavScreen> {
   int _selectedIndex = 0;
-  final screen = [Home(), Create(), Profile()];
-
+  late final screen = [Home(), Create(), Profile()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
