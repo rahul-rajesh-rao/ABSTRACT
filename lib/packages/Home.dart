@@ -1,7 +1,6 @@
 import 'package:abstract_mp/packages/Difficulty.dart';
 import 'package:abstract_mp/packages/Start_quiz.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -14,9 +13,6 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   final Stream<QuerySnapshot> quizStream =
       FirebaseFirestore.instance.collection("Quiz").snapshots();
-
-  // late Stream quizStream;
-  // DatabaseService databaseService = new DatabaseService();
 
   Widget quizList() {
     return StreamBuilder<QuerySnapshot>(
@@ -44,50 +40,10 @@ class _HomeState extends State<Home> {
                 difficulty: data.docs[index]['quizDifficulty'],
                 madeby: data.docs[index]['createdBy'],
               );
-              // return Padding(
-              //   padding: const EdgeInsets.symmetric(horizontal: 5),
-              //   child: GestureDetector(
-              //     child: Container(
-              //       child: Column(
-              //           mainAxisAlignment: MainAxisAlignment.start,
-              //           children: [
-              //             SizedBox(
-              //               height: 140,
-              //             ),
-              //             Text(data.docs[index]['quizTitle'],
-              //                 style: TextStyle(
-              //                   color: Colors.white,
-              //                   fontSize: 18,
-              //                   fontWeight: FontWeight.w600,
-              //                 ))
-              //           ]),
-              //       width: 160.0,
-              //       decoration: BoxDecoration(
-              //         color: Colors.blue,
-              //         borderRadius: BorderRadius.circular(20.0),
-              //       ),
-              //     ),
-              //     onTap: () {
-              //       Navigator.pushReplacement(
-              //           context,
-              //           MaterialPageRoute(
-              //               builder: (context) => startQuiz()));
-              //     },
-              //   ),
-              // );
             });
       },
     );
   }
-
-  // @override
-  // void initState() {
-  //   databaseService.getQuizData().then((value) {
-  //     quizStream = value;
-  //     setState(() {});
-  //   });
-  //   super.initState();
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -114,19 +70,16 @@ class _HomeState extends State<Home> {
           ),
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 20, 270, 0),
-              child: Text(
-                "Home",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 21,
-                  fontWeight: FontWeight.w600,
-                ),
+            Text(
+              "Home",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 21,
+                fontWeight: FontWeight.w600,
               ),
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(0, 20, 180, 0),
+              padding: const EdgeInsets.fromLTRB(0, 20, 150, 0),
               child: Text(
                 "Choose By Topic",
                 style: TextStyle(
@@ -698,104 +651,6 @@ class _HomeState extends State<Home> {
               margin: EdgeInsets.symmetric(vertical: 20.0),
               height: 200.0,
               child: quizList(),
-              // child: StreamBuilder<QuerySnapshot>(
-              //   stream: quizStream,
-              //   builder: (BuildContext context,
-              //       AsyncSnapshot<QuerySnapshot> snapshot) {
-              //     if (snapshot.hasError) {
-              //       return Container();
-              //     }
-
-              //     if (snapshot.connectionState == ConnectionState.waiting) {
-              //       return Container(
-              //         child: Center(
-              //           child: CircularProgressIndicator(),
-              //         ),
-              //       );
-              //     }
-              //     final data = snapshot.requireData;
-              //     return ListView.builder(
-              //         scrollDirection: Axis.horizontal,
-              //         itemCount: data.docs.length,
-              //         itemBuilder: (context, index) {
-              //           return Padding(
-              //             padding: const EdgeInsets.symmetric(horizontal: 5),
-              //             child: GestureDetector(
-              //               child: Container(
-              //                 child: Column(
-              //                     mainAxisAlignment: MainAxisAlignment.start,
-              //                     children: [
-              //                       SizedBox(
-              //                         height: 140,
-              //                       ),
-              //                       Text(data.docs[index]['quizTitle'],
-              //                           style: TextStyle(
-              //                             color: Colors.white,
-              //                             fontSize: 18,
-              //                             fontWeight: FontWeight.w600,
-              //                           ))
-              //                     ]),
-              //                 width: 160.0,
-              //                 decoration: BoxDecoration(
-              //                   color: Colors.blue,
-              //                   borderRadius: BorderRadius.circular(20.0),
-              //                 ),
-              //               ),
-              //               onTap: () {
-              //                 Navigator.pushReplacement(
-              //                     context,
-              //                     MaterialPageRoute(
-              //                         builder: (context) => startQuiz()));
-              //               },
-              //             ),
-              //           );
-              //         });
-              //   },
-              // ),
-              // child: ListView(
-              //   scrollDirection: Axis.horizontal,
-              //   children: <Widget>[
-              //     Container(
-              //       width: 160.0,
-              //       decoration: BoxDecoration(
-              //         color: Colors.red,
-              //         borderRadius: BorderRadius.circular(20.0),
-              //       ),
-              //     ),
-              //     SizedBox(width: 10),
-              //     Container(
-              //       width: 160.0,
-              //       decoration: BoxDecoration(
-              //         color: Colors.blue,
-              //         borderRadius: BorderRadius.circular(20.0),
-              //       ),
-              //     ),
-              //     SizedBox(width: 10),
-              //     Container(
-              //       width: 160.0,
-              //       decoration: BoxDecoration(
-              //         color: Colors.green,
-              //         borderRadius: BorderRadius.circular(20.0),
-              //       ),
-              //     ),
-              //     SizedBox(width: 10),
-              //     Container(
-              //       width: 160.0,
-              //       decoration: BoxDecoration(
-              //         color: Colors.yellow,
-              //         borderRadius: BorderRadius.circular(20.0),
-              //       ),
-              //     ),
-              //     SizedBox(width: 10),
-              //     Container(
-              //       width: 160.0,
-              //       decoration: BoxDecoration(
-              //         color: Colors.orange,
-              //         borderRadius: BorderRadius.circular(20.0),
-              //       ),
-              //     ),
-              //   ],
-              // ),
             ),
           ]),
         ),

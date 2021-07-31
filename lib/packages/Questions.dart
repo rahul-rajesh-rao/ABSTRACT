@@ -1,11 +1,11 @@
-import 'package:abstract_mp/packages/CreateQuestionMap.dart';
+import 'package:abstract_mp/models/CreateQuestionMap.dart';
 import 'package:abstract_mp/packages/NavScreen.dart';
-import 'package:abstract_mp/packages/UploadQuestion.dart';
+import 'package:abstract_mp/service/UploadQuestion.dart';
 import 'package:abstract_mp/service/database_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'CreateQuestionMap.dart';
+import '../models/CreateQuestionMap.dart';
 
 class Questions extends StatefulWidget {
   final String quizId;
@@ -19,7 +19,7 @@ class _QuestionsState extends State<Questions> {
   DatabaseService databaseService = new DatabaseService();
   List finQuestionMap = [];
   final _formKey = GlobalKey<FormState>();
-  final maxQuestion = 5;
+  final maxQuestion = 10;
   var questionNo = 1;
   var noOfQuestion = 0;
   bool isLoading = false;
@@ -302,64 +302,59 @@ class _QuestionsState extends State<Questions> {
                       },
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(290, 15, 0, 0),
-                    child: IconButton(
-                        color: Colors.white,
-                        iconSize: 40,
-                        onPressed: () {
-                          if (uploadQuestionData(true)) {
-                            if (noOfQuestion >= maxQuestion) {
-                              showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      title: Text("Error"),
-                                      content: Text("Too many questions"),
-                                      actions: [
-                                        TextButton(
-                                          child: Text("Ok"),
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                          },
-                                        )
-                                      ],
-                                    );
-                                  });
-                            } else {
-                              questionNo++;
-                            }
+                  IconButton(
+                      alignment: Alignment.bottomLeft,
+                      color: Colors.white,
+                      iconSize: 40,
+                      onPressed: () {
+                        if (uploadQuestionData(true)) {
+                          if (noOfQuestion >= maxQuestion) {
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Text("Error"),
+                                    content: Text("Too many questions"),
+                                    actions: [
+                                      TextButton(
+                                        child: Text("Ok"),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      )
+                                    ],
+                                  );
+                                });
+                          } else {
+                            questionNo++;
                           }
-                          clearText();
-                        },
-                        icon: Icon(Icons.add_circle_outline_rounded)),
-                  ),
+                        }
+                        clearText();
+                      },
+                      icon: Icon(Icons.add_circle_outline_rounded)),
+                  SizedBox(height: 5),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 10,
-                        ),
-                        child: MaterialButton(
-                            height: 50,
-                            minWidth: 160,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: new BorderRadius.circular(30)),
-                            child: Text(
-                              "Cancel",
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.black,
-                              ),
+                      MaterialButton(
+                          height: 50,
+                          minWidth: 160,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(30)),
+                          child: Text(
+                            "Cancel",
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.black,
                             ),
-                            color: Colors.red,
-                            onPressed: () {
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => NavScreen()));
-                            }),
-                      ),
+                          ),
+                          color: Colors.red,
+                          onPressed: () {
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => NavScreen()));
+                          }),
                       Padding(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 10,
@@ -381,7 +376,7 @@ class _QuestionsState extends State<Questions> {
                             if (noOfQuestion < questionNo) {
                               uploadQuestionData(false);
                             }
-                            if (noOfQuestion > 1 &&
+                            if (noOfQuestion > 5 &&
                                 noOfQuestion <= maxQuestion) {
                               Navigator.pushReplacement(
                                   context,

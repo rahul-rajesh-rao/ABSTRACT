@@ -215,7 +215,7 @@ class _SignInState extends State<SignIn> {
                                 builder: (BuildContext context) {
                                   return AlertDialog(
                                     title: Text("Error"),
-                                    content: Text("enter email"),
+                                    content: Text("Enter email"),
                                     actions: [
                                       TextButton(
                                         child: Text("Ok"),
@@ -234,7 +234,7 @@ class _SignInState extends State<SignIn> {
                                   builder: (BuildContext context) {
                                     return AlertDialog(
                                       title: Text("Error"),
-                                      content: Text("password is empty"),
+                                      content: Text("Password is empty"),
                                       actions: [
                                         TextButton(
                                           child: Text("Ok"),
@@ -245,7 +245,7 @@ class _SignInState extends State<SignIn> {
                                       ],
                                     );
                                   });
-                              print("password is empty");
+                              print("Password is empty");
                             } else {
                               try {
                                 UserCredential userCredential =

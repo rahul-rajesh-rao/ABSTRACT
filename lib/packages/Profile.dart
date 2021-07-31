@@ -41,17 +41,10 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
     final String? pfploc = FirebaseAuth.instance.currentUser!.photoURL;
     return Scaffold(
         backgroundColor: HexColor("#012A4A"),
-        // appBar: AppBar(
-        //   elevation: 0,
-        //   backgroundColor: HexColor("#012A4A"),
-        // ),
         body: SizedBox(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: Container(
-            // margin: EdgeInsets.symmetric(
-            //   horizontal: 25.0,
-            // ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -115,7 +108,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
                 ),
                 MaterialButton(
                   height: 58,
-                  minWidth: 370,
+                  minWidth: 350,
                   shape: RoundedRectangleBorder(
                       borderRadius: new BorderRadius.circular(30)),
                   child: Text(

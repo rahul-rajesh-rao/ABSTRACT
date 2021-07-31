@@ -13,7 +13,6 @@ class Create extends StatefulWidget {
 }
 
 class _CreateState extends State<Create> {
-  //CollectionReference quiz = FirebaseFirestore.instance.collection("quiz");
   String quizTitle = "", quizDifficulty = "";
 
   DatabaseService databaseService = new DatabaseService();
@@ -41,11 +40,6 @@ class _CreateState extends State<Create> {
         "createdBy": FirebaseAuth.instance.currentUser!.displayName,
       };
 
-      // databaseService.addQuizData(quizData, quizId).then((value) {
-      //   setState(() {
-      //     isLoading = false;
-      //   });
-      // });
       Navigator.pushReplacement(context,
           MaterialPageRoute(builder: (context) => Questions(quizId, quizData)));
     }
@@ -67,18 +61,7 @@ class _CreateState extends State<Create> {
           elevation: 0,
           backgroundColor: HexColor("#012A4A"),
         ),
-        body:
-            /*isLoading
-            ? Container(
-                child: Center(
-                    child: LinearProgressIndicator(
-                  backgroundColor: Colors.blue[800],
-                  minHeight: 20,
-                  valueColor: AlwaysStoppedAnimation(Colors.white),
-                )),
-              )
-            :*/
-            Form(
+        body: Form(
           key: _formKey,
           child: SizedBox(
             width: MediaQuery.of(context).size.width,
@@ -190,18 +173,6 @@ class _CreateState extends State<Create> {
                           color: Colors.white,
                           onPressed: () {
                             createQuiz();
-                            // addQuiz(quizTitle, quizDifficulty);
-                            // await quiz.add({
-                            //   "quizTitle": quizTitle,
-                            //   "quizDifficulty": quizDifficulty,
-                            //   "id": quiz.id,
-                            // }).catchError((e) {
-                            //   print(e);
-                            // });
-                            // Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: (context) => Questions()));
                           }),
                     ),
                   ]),

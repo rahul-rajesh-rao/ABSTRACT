@@ -63,6 +63,7 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
     return Scaffold(
       backgroundColor: HexColor("#012A4A"),
       appBar: AppBar(
+        elevation: 0,
         backgroundColor: HexColor("#012A4A"),
       ),
       body: SizedBox(

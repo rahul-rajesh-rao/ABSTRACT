@@ -33,7 +33,7 @@ class _SignUpState extends State<SignUp> {
           builder: (BuildContext context) {
             return AlertDialog(
               title: Text("Error"),
-              content: Text("enter email"),
+              content: Text("Enter email"),
               actions: [
                 TextButton(
                   child: Text("Ok"),
@@ -51,7 +51,7 @@ class _SignUpState extends State<SignUp> {
           builder: (BuildContext context) {
             return AlertDialog(
               title: Text("Error"),
-              content: Text("password is empty"),
+              content: Text("Password is empty"),
               actions: [
                 TextButton(
                   child: Text("Ok"),
@@ -69,7 +69,7 @@ class _SignUpState extends State<SignUp> {
           builder: (BuildContext context) {
             return AlertDialog(
               title: Text("Error"),
-              content: Text("password doesn't match"),
+              content: Text("Password doesn't match"),
               actions: [
                 TextButton(
                   child: Text("Ok"),

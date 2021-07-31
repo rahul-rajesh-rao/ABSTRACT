@@ -1,12 +1,12 @@
 import 'dart:convert';
 import 'package:abstract_mp/packages/loading.dart';
 
-import "QuestionModel.dart";
-import 'Question.dart';
+import '../models/QuestionModel.dart';
+import '../models/Question.dart';
 import "package:http/http.dart" as http;
 import 'package:flutter/material.dart';
 
-import 'Quiz.dart';
+import '../packages/Quiz.dart';
 
 class Api {
   final String tpid, difficulty;

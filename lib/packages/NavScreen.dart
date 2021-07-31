@@ -26,8 +26,8 @@ class _NavScreenState extends State<NavScreen> {
         color: Colors.white,
         buttonBackgroundColor: Colors.white,
         backgroundColor: Colors.blueAccent,
-        animationCurve: Curves.bounceInOut,
-        animationDuration: Duration(milliseconds: 500),
+        animationCurve: Curves.easeInOut,
+        animationDuration: Duration(milliseconds: 400),
         onTap: (index) {
           setState(() {
             _selectedIndex = index;

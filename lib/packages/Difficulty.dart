@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'Loader.dart';
+import '../service/Loader.dart';
 
 class Difficulty extends StatefulWidget {
   final String topic, tpid;

@@ -43,6 +43,3 @@ class _AuthWrapperState extends State<AuthWrapper> {
     return loading();
   }
 }
-// TODO
-// SVG WORK
-// PROFILE DETAILS
