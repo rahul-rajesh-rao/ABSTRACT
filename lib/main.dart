@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:abstract_mp/packages/NavScreen.dart';
 import 'package:abstract_mp/packages/SignIn.dart';
 import 'package:firebase_auth/firebase_auth.dart';

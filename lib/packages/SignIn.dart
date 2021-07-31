@@ -116,7 +116,10 @@ class _SignInState extends State<SignIn> {
                       Padding(
                         padding: const EdgeInsets.fromLTRB(0, 0, 205, 5),
                         child: TextButton(
-                          onPressed: () {},
+                          onPressed: ()  {
+                             FirebaseAuth.instance
+                                .sendPasswordResetEmail(email: email);
+                          },
                           child: Text(
                             "Forgot Password",
                             style: TextStyle(
