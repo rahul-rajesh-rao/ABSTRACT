@@ -1,6 +1,7 @@
 import 'package:abstract_mp/packages/Difficulty.dart';
 import 'package:abstract_mp/packages/Start_quiz.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -40,6 +41,8 @@ class _HomeState extends State<Home> {
               return quizTile(
                 quizTitle: data.docs[index]['quizTitle'],
                 quizId: data.docs[index]['quizId'],
+                difficulty: data.docs[index]['quizDifficulty'],
+                madeby: data.docs[index]['createdBy'],
               );
               // return Padding(
               //   padding: const EdgeInsets.symmetric(horizontal: 5),
@@ -95,7 +98,7 @@ class _HomeState extends State<Home> {
           padding: const EdgeInsets.all(0.0),
           child: SvgPicture.asset(
             "assets/Abstract_logo.svg",
-            height: 20.0,
+            height: 22.0,
             width: 30,
           ),
         ),
@@ -117,7 +120,7 @@ class _HomeState extends State<Home> {
                 "Home",
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 25,
+                  fontSize: 21,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -128,7 +131,7 @@ class _HomeState extends State<Home> {
                 "Choose By Topic",
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 20,
+                  fontSize: 19,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -151,7 +154,11 @@ class _HomeState extends State<Home> {
                       width: 160.0,
                       child: Stack(
                         children: <Widget>[
-                          SvgPicture.asset('assets/Science.svg'),
+                          Center(
+                              child: SvgPicture.asset(
+                            'assets/Science.svg',
+                            height: 150,
+                          )),
                           SizedBox(height: 10),
                           Center(
                             child: Padding(
@@ -161,7 +168,7 @@ class _HomeState extends State<Home> {
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     color: HexColor('#ffffff'),
-                                    fontSize: 20,
+                                    fontSize: 19,
                                     fontFamily: "Montserrat",
                                     fontWeight: FontWeight.bold),
                               ),
@@ -188,7 +195,12 @@ class _HomeState extends State<Home> {
                       width: 160.0,
                       child: Stack(
                         children: <Widget>[
-                          SvgPicture.asset('assets/Computer.svg'),
+                          Center(
+                            child: SvgPicture.asset(
+                              'assets/Computer.svg',
+                              height: 150,
+                            ),
+                          ),
                           SizedBox(height: 10),
                           Center(
                             child: Padding(
@@ -198,7 +210,7 @@ class _HomeState extends State<Home> {
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     color: HexColor('#ffffff'),
-                                    fontSize: 20,
+                                    fontSize: 19,
                                     fontFamily: "Montserrat",
                                     fontWeight: FontWeight.bold),
                               ),
@@ -207,43 +219,7 @@ class _HomeState extends State<Home> {
                         ],
                       ),
                       decoration: BoxDecoration(
-                        color: Colors.blue,
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 10),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => Difficulty("Math", "19")));
-                    },
-                    child: Container(
-                      width: 160.0,
-                      child: Stack(
-                        children: <Widget>[
-                          SvgPicture.asset('assets/Math.svg'),
-                          SizedBox(height: 10),
-                          Center(
-                            child: Padding(
-                              padding: EdgeInsets.fromLTRB(0, 180, 0, 0),
-                              child: Text(
-                                'Math',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: HexColor('#ffffff'),
-                                    fontSize: 20,
-                                    fontFamily: "Montserrat",
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.green,
+                        color: HexColor("#00afb9"),
                         borderRadius: BorderRadius.circular(20.0),
                       ),
                     ),
@@ -261,7 +237,12 @@ class _HomeState extends State<Home> {
                       width: 160.0,
                       child: Stack(
                         children: <Widget>[
-                          SvgPicture.asset('assets/Sports.svg'),
+                          Center(
+                            child: SvgPicture.asset(
+                              'assets/Sports.svg',
+                              height: 150,
+                            ),
+                          ),
                           SizedBox(height: 10),
                           Center(
                             child: Padding(
@@ -271,7 +252,7 @@ class _HomeState extends State<Home> {
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     color: HexColor('#ffffff'),
-                                    fontSize: 20,
+                                    fontSize: 19,
                                     fontFamily: "Montserrat",
                                     fontWeight: FontWeight.bold),
                               ),
@@ -297,7 +278,12 @@ class _HomeState extends State<Home> {
                       width: 160.0,
                       child: Stack(
                         children: <Widget>[
-                          SvgPicture.asset('assets/Music.svg'),
+                          Center(
+                            child: SvgPicture.asset(
+                              'assets/Music.svg',
+                              height: 150,
+                            ),
+                          ),
                           SizedBox(height: 10),
                           Center(
                             child: Padding(
@@ -307,7 +293,7 @@ class _HomeState extends State<Home> {
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     color: HexColor('#ffffff'),
-                                    fontSize: 20,
+                                    fontSize: 19,
                                     fontFamily: "Montserrat",
                                     fontWeight: FontWeight.bold),
                               ),
@@ -333,7 +319,12 @@ class _HomeState extends State<Home> {
                       width: 160.0,
                       child: Stack(
                         children: <Widget>[
-                          SvgPicture.asset('assets/Movie.svg'),
+                          Center(
+                            child: SvgPicture.asset(
+                              'assets/Movie.svg',
+                              height: 150,
+                            ),
+                          ),
                           SizedBox(height: 10),
                           Center(
                             child: Padding(
@@ -343,7 +334,7 @@ class _HomeState extends State<Home> {
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     color: HexColor('#ffffff'),
-                                    fontSize: 20,
+                                    fontSize: 19,
                                     fontFamily: "Montserrat",
                                     fontWeight: FontWeight.bold),
                               ),
@@ -370,7 +361,12 @@ class _HomeState extends State<Home> {
                       width: 160.0,
                       child: Stack(
                         children: <Widget>[
-                          SvgPicture.asset('assets/Videogames.svg'),
+                          Center(
+                            child: SvgPicture.asset(
+                              'assets/Videogames.svg',
+                              height: 150,
+                            ),
+                          ),
                           SizedBox(height: 10),
                           Center(
                             child: Padding(
@@ -380,7 +376,7 @@ class _HomeState extends State<Home> {
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     color: HexColor('#ffffff'),
-                                    fontSize: 20,
+                                    fontSize: 19,
                                     fontFamily: "Montserrat",
                                     fontWeight: FontWeight.bold),
                               ),
@@ -407,7 +403,12 @@ class _HomeState extends State<Home> {
                       width: 160.0,
                       child: Stack(
                         children: <Widget>[
-                          SvgPicture.asset('assets/Geography.svg'),
+                          Center(
+                            child: SvgPicture.asset(
+                              'assets/Geography.svg',
+                              height: 150,
+                            ),
+                          ),
                           SizedBox(height: 10),
                           Center(
                             child: Padding(
@@ -417,7 +418,7 @@ class _HomeState extends State<Home> {
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     color: HexColor('#ffffff'),
-                                    fontSize: 20,
+                                    fontSize: 19,
                                     fontFamily: "Montserrat",
                                     fontWeight: FontWeight.bold),
                               ),
@@ -437,6 +438,47 @@ class _HomeState extends State<Home> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
+                              builder: (context) => Difficulty("Math", "19")));
+                    },
+                    child: Container(
+                      width: 160.0,
+                      child: Stack(
+                        children: <Widget>[
+                          Center(
+                            child: SvgPicture.asset(
+                              'assets/Math.svg',
+                              height: 150,
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                          Center(
+                            child: Padding(
+                              padding: EdgeInsets.fromLTRB(0, 180, 0, 0),
+                              child: Text(
+                                'Math',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: HexColor('#ffffff'),
+                                    fontSize: 19,
+                                    fontFamily: "Montserrat",
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      decoration: BoxDecoration(
+                        color: HexColor('#ff00ff'),
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
                               builder: (context) =>
                                   Difficulty("Vehicels", "28")));
                     },
@@ -444,7 +486,12 @@ class _HomeState extends State<Home> {
                       width: 160.0,
                       child: Stack(
                         children: <Widget>[
-                          SvgPicture.asset('assets/Vechicel.svg'),
+                          Center(
+                            child: SvgPicture.asset(
+                              'assets/Vechicel.svg',
+                              height: 150,
+                            ),
+                          ),
                           SizedBox(height: 10),
                           Center(
                             child: Padding(
@@ -454,7 +501,7 @@ class _HomeState extends State<Home> {
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     color: HexColor('#ffffff'),
-                                    fontSize: 20,
+                                    fontSize: 19,
                                     fontFamily: "Montserrat",
                                     fontWeight: FontWeight.bold),
                               ),
@@ -481,7 +528,12 @@ class _HomeState extends State<Home> {
                       width: 160.0,
                       child: Stack(
                         children: <Widget>[
-                          SvgPicture.asset('assets/Mythology.svg'),
+                          Center(
+                            child: SvgPicture.asset(
+                              'assets/Mythology.svg',
+                              height: 150,
+                            ),
+                          ),
                           SizedBox(height: 10),
                           Center(
                             child: Padding(
@@ -491,7 +543,7 @@ class _HomeState extends State<Home> {
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     color: HexColor('#ffffff'),
-                                    fontSize: 20,
+                                    fontSize: 19,
                                     fontFamily: "Montserrat",
                                     fontWeight: FontWeight.bold),
                               ),
@@ -518,7 +570,12 @@ class _HomeState extends State<Home> {
                       width: 160.0,
                       child: Stack(
                         children: <Widget>[
-                          SvgPicture.asset('assets/Cartoon.svg'),
+                          Center(
+                            child: SvgPicture.asset(
+                              'assets/Cartoon.svg',
+                              height: 150,
+                            ),
+                          ),
                           SizedBox(height: 10),
                           Center(
                             child: Padding(
@@ -528,7 +585,7 @@ class _HomeState extends State<Home> {
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     color: HexColor('#ffffff'),
-                                    fontSize: 20,
+                                    fontSize: 19,
                                     fontFamily: "Montserrat",
                                     fontWeight: FontWeight.bold),
                               ),
@@ -555,7 +612,12 @@ class _HomeState extends State<Home> {
                       width: 160.0,
                       child: Stack(
                         children: <Widget>[
-                          SvgPicture.asset('assets/Politics.svg'),
+                          Center(
+                            child: SvgPicture.asset(
+                              'assets/Politics.svg',
+                              height: 150,
+                            ),
+                          ),
                           SizedBox(height: 10),
                           Center(
                             child: Padding(
@@ -565,7 +627,7 @@ class _HomeState extends State<Home> {
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     color: HexColor('#ffffff'),
-                                    fontSize: 20,
+                                    fontSize: 19,
                                     fontFamily: "Montserrat",
                                     fontWeight: FontWeight.bold),
                               ),
@@ -592,7 +654,12 @@ class _HomeState extends State<Home> {
                       width: 160.0,
                       child: Stack(
                         children: <Widget>[
-                          SvgPicture.asset('assets/History.svg'),
+                          Center(
+                            child: SvgPicture.asset(
+                              'assets/History.svg',
+                              height: 150,
+                            ),
+                          ),
                           SizedBox(height: 10),
                           Center(
                             child: Padding(
@@ -602,7 +669,7 @@ class _HomeState extends State<Home> {
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     color: HexColor('#ffffff'),
-                                    fontSize: 20,
+                                    fontSize: 19,
                                     fontFamily: "Montserrat",
                                     fontWeight: FontWeight.bold),
                               ),
@@ -623,7 +690,7 @@ class _HomeState extends State<Home> {
               "Made By Your Commrades!",
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 20,
+                fontSize: 19,
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -738,8 +805,12 @@ class _HomeState extends State<Home> {
 }
 
 class quizTile extends StatelessWidget {
-  final String quizTitle, quizId;
-  quizTile({required this.quizTitle, required this.quizId});
+  final String quizTitle, quizId, difficulty, madeby;
+  quizTile(
+      {required this.quizTitle,
+      required this.quizId,
+      required this.difficulty,
+      required this.madeby});
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -759,7 +830,7 @@ class quizTile extends StatelessWidget {
                 maxLines: 2,
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 20,
+                  fontSize: 19,
                   fontWeight: FontWeight.w600,
                   fontFamily: 'Montserrat',
                 ))
@@ -771,8 +842,11 @@ class quizTile extends StatelessWidget {
           ),
         ),
         onTap: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => StartQuiz(quizId)));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      StartQuiz(quizId, quizTitle, difficulty, madeby)));
         },
       ),
     );

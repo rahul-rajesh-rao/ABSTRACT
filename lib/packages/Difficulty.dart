@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'Loader.dart';
 
@@ -10,7 +11,7 @@ class Difficulty extends StatefulWidget {
 }
 
 class _DifficultyState extends State<Difficulty> {
-  late var difficulty;
+  var difficulty = 'medium';
   List<bool> selected = [false, false, false];
   @override
   Widget build(BuildContext context) {
@@ -19,6 +20,14 @@ class _DifficultyState extends State<Difficulty> {
         appBar: AppBar(
           backgroundColor: HexColor("#012A4A"),
           elevation: 0,
+          title: Padding(
+            padding: const EdgeInsets.all(0.0),
+            child: SvgPicture.asset(
+              "assets/Abstract_logo.svg",
+              height: 20.0,
+              width: 30,
+            ),
+          ),
         ),
         body: SizedBox(
             width: MediaQuery.of(context).size.width,

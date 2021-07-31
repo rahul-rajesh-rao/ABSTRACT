@@ -1,7 +1,6 @@
-import 'dart:html';
-
 import 'package:abstract_mp/packages/NavScreen.dart';
 import 'package:abstract_mp/packages/SignIn.dart';
+import 'package:abstract_mp/packages/loading.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -41,12 +40,9 @@ class _AuthWrapperState extends State<AuthWrapper> {
             context, MaterialPageRoute(builder: (context) => SignIn()));
       }
     });
-    return Container(child: Center(child: CircularProgressIndicator()));
+    return loading();
   }
 }
-// TODO 
-// SET CONDITION FOR THE TIMER,CHECK STATE AND DISPOSE ISSUE
-// ANIMATION SHOULD RESTART ON PRESS 
-// SVG WORK 
-// PAGE REROUTING ,DUPLICATE CELEBRATION PAGE
+// TODO
+// SVG WORK
 // PROFILE DETAILS

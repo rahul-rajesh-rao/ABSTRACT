@@ -1,16 +1,15 @@
 import 'package:abstract_mp/packages/NavScreen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-class Celebration extends StatefulWidget {
-  final int score;
-  Celebration(this.score);
+class QuizCreatedPage extends StatefulWidget {
+  const QuizCreatedPage({Key? key}) : super(key: key);
+
   @override
-  _CelebrationState createState() => _CelebrationState();
+  _QuizCreatedPageState createState() => _QuizCreatedPageState();
 }
 
-class _CelebrationState extends State<Celebration>
+class _QuizCreatedPageState extends State<QuizCreatedPage>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
@@ -45,8 +44,6 @@ class _CelebrationState extends State<Celebration>
 
   @override
   Widget build(BuildContext context) {
-    int score = widget.score;
-    final String? pfp = FirebaseAuth.instance.currentUser!.photoURL;
     return Scaffold(
       backgroundColor: HexColor("#012A4A"),
       body: Stack(
@@ -76,7 +73,7 @@ class _CelebrationState extends State<Celebration>
                             height: 300,
                           ),
                           Text(
-                            "Quiz Completed!",
+                            "Success!",
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: Colors.white,
@@ -89,7 +86,7 @@ class _CelebrationState extends State<Celebration>
                             height: 15,
                           ),
                           Text(
-                            "You got $score points.",
+                            "Quiz Created.",
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: Colors.white,
@@ -140,12 +137,10 @@ class _CelebrationState extends State<Celebration>
                     alignment: Alignment.topCenter,
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(0, 180, 0, 0),
-                      child: ClipOval(
-                        child: Image.asset(
-                          'assets/$pfp',
-                          width: 150,
-                          height: 150,
-                        ),
+                      child: Image.asset(
+                        'assets/rocket.png',
+                        width: MediaQuery.of(context).size.width / 3,
+                        height: MediaQuery.of(context).size.height / 3,
                       ),
                     ),
                   ),

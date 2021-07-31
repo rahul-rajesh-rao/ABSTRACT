@@ -1,8 +1,11 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'NavScreen.dart';
+import 'package:flutter/scheduler.dart';
 
 class SignUp extends StatefulWidget {
   @override
@@ -19,6 +22,130 @@ class _SignUpState extends State<SignUp> {
   String password = "";
   String rePassword = "";
   String username = "";
+
+  uploadData() async {
+    int pfpNo = Random.secure().nextInt(6);
+    final String email = emailController.text.trim();
+    final String password = passwordController.text.trim();
+    if (email.isEmpty) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text("Error"),
+              content: Text("enter email"),
+              actions: [
+                TextButton(
+                  child: Text("Ok"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                )
+              ],
+            );
+          });
+      print("enter email");
+    } else if (password.isEmpty) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text("Error"),
+              content: Text("password is empty"),
+              actions: [
+                TextButton(
+                  child: Text("Ok"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                )
+              ],
+            );
+          });
+      print("password is empty");
+    } else if (password != rePassword) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text("Error"),
+              content: Text("password doesn't match"),
+              actions: [
+                TextButton(
+                  child: Text("Ok"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                )
+              ],
+            );
+          });
+      print("password doesn't match");
+    } else {
+      try {
+        UserCredential userCredential =
+            await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: email,
+          password: password,
+        );
+        User? user = FirebaseAuth.instance.currentUser;
+        await user!.updateDisplayName(username);
+        await user.updatePhotoURL("pfp$pfpNo.jpg");
+        await user.reload();
+        await FirebaseFirestore.instance.collection("users").doc(user.uid).set({
+          "username": username,
+          "uid": user.uid,
+          "email": email,
+          "password": password
+        });
+        SchedulerBinding.instance!.addPostFrameCallback((_) {
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => NavScreen()));
+        });
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'weak-password') {
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: Text("Error"),
+                  content: Text('The password provided is too weak.'),
+                  actions: [
+                    TextButton(
+                      child: Text("Ok"),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    )
+                  ],
+                );
+              });
+          print('The password provided is too weak.');
+        } else if (e.code == 'email-already-in-use') {
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: Text("Error"),
+                  content: Text('The account already exists for that email.'),
+                  actions: [
+                    TextButton(
+                      child: Text("Ok"),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    )
+                  ],
+                );
+              });
+          print('The account already exists for that email.');
+        }
+      } catch (e) {
+        print(e);
+      }
+      print("auth done");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -221,133 +348,135 @@ class _SignUpState extends State<SignUp> {
                         shape: RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(30)),
                         onPressed: () async {
-                          final String email = emailController.text.trim();
-                          final String password =
-                              passwordController.text.trim();
-                          if (email.isEmpty) {
-                            showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    title: Text("Error"),
-                                    content: Text("enter email"),
-                                    actions: [
-                                      TextButton(
-                                        child: Text("Ok"),
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                      )
-                                    ],
-                                  );
-                                });
-                            print("enter email");
-                          } else if (password.isEmpty) {
-                            showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    title: Text("Error"),
-                                    content: Text("password is empty"),
-                                    actions: [
-                                      TextButton(
-                                        child: Text("Ok"),
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                      )
-                                    ],
-                                  );
-                                });
-                            print("password is empty");
-                          } else if (password != rePassword) {
-                            showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    title: Text("Error"),
-                                    content: Text("password doesn't match"),
-                                    actions: [
-                                      TextButton(
-                                        child: Text("Ok"),
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                      )
-                                    ],
-                                  );
-                                });
-                            print("password doesn't match");
-                          } else {
-                            try {
-                              UserCredential userCredential = await FirebaseAuth
-                                  .instance
-                                  .createUserWithEmailAndPassword(
-                                email: email,
-                                password: password,
-                              );
-                              User? user = FirebaseAuth.instance.currentUser;
-                              await user!.updateDisplayName(username);
-                              await user.reload();
-                              await FirebaseFirestore.instance
-                                  .collection("users")
-                                  .doc(user.uid)
-                                  .set({
-                                "username": username,
-                                "uid": user.uid,
-                                "email": email,
-                                "password": password
-                              });
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => NavScreen()));
-                            } on FirebaseAuthException catch (e) {
-                              if (e.code == 'weak-password') {
-                                showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return AlertDialog(
-                                        title: Text("Error"),
-                                        content: Text(
-                                            'The password provided is too weak.'),
-                                        actions: [
-                                          TextButton(
-                                            child: Text("Ok"),
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                            },
-                                          )
-                                        ],
-                                      );
-                                    });
-                                print('The password provided is too weak.');
-                              } else if (e.code == 'email-already-in-use') {
-                                showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return AlertDialog(
-                                        title: Text("Error"),
-                                        content: Text(
-                                            'The account already exists for that email.'),
-                                        actions: [
-                                          TextButton(
-                                            child: Text("Ok"),
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                            },
-                                          )
-                                        ],
-                                      );
-                                    });
-                                print(
-                                    'The account already exists for that email.');
-                              }
-                            } catch (e) {
-                              print(e);
-                            }
-                            print("auth done");
-                          }
+                          uploadData();
+                          // final String email = emailController.text.trim();
+                          // final String password =
+                          //     passwordController.text.trim();
+                          // if (email.isEmpty) {
+                          //   showDialog(
+                          //       context: context,
+                          //       builder: (BuildContext context) {
+                          //         return AlertDialog(
+                          //           title: Text("Error"),
+                          //           content: Text("enter email"),
+                          //           actions: [
+                          //             TextButton(
+                          //               child: Text("Ok"),
+                          //               onPressed: () {
+                          //                 Navigator.of(context).pop();
+                          //               },
+                          //             )
+                          //           ],
+                          //         );
+                          //       });
+                          //   print("enter email");
+                          // } else if (password.isEmpty) {
+                          //   showDialog(
+                          //       context: context,
+                          //       builder: (BuildContext context) {
+                          //         return AlertDialog(
+                          //           title: Text("Error"),
+                          //           content: Text("password is empty"),
+                          //           actions: [
+                          //             TextButton(
+                          //               child: Text("Ok"),
+                          //               onPressed: () {
+                          //                 Navigator.of(context).pop();
+                          //               },
+                          //             )
+                          //           ],
+                          //         );
+                          //       });
+                          //   print("password is empty");
+                          // } else if (password != rePassword) {
+                          //   showDialog(
+                          //       context: context,
+                          //       builder: (BuildContext context) {
+                          //         return AlertDialog(
+                          //           title: Text("Error"),
+                          //           content: Text("password doesn't match"),
+                          //           actions: [
+                          //             TextButton(
+                          //               child: Text("Ok"),
+                          //               onPressed: () {
+                          //                 Navigator.of(context).pop();
+                          //               },
+                          //             )
+                          //           ],
+                          //         );
+                          //       });
+                          //   print("password doesn't match");
+                          // } else {
+                          //   try {
+                          //     UserCredential userCredential = await FirebaseAuth
+                          //         .instance
+                          //         .createUserWithEmailAndPassword(
+                          //       email: email,
+                          //       password: password,
+                          //     );
+                          //     User? user = FirebaseAuth.instance.currentUser;
+                          //     await user!.updateDisplayName(username);
+                          //     await user.updatePhotoURL("pfp$pfpNo.jpg");
+                          //     await user.reload();
+                          //     await FirebaseFirestore.instance
+                          //         .collection("users")
+                          //         .doc(user.uid)
+                          //         .set({
+                          //       "username": username,
+                          //       "uid": user.uid,
+                          //       "email": email,
+                          //       "password": password
+                          //     });
+                          //     Navigator.pushReplacement(
+                          //         context,
+                          //         MaterialPageRoute(
+                          //             builder: (context) => NavScreen()));
+                          //   } on FirebaseAuthException catch (e) {
+                          //     if (e.code == 'weak-password') {
+                          //       showDialog(
+                          //           context: context,
+                          //           builder: (BuildContext context) {
+                          //             return AlertDialog(
+                          //               title: Text("Error"),
+                          //               content: Text(
+                          //                   'The password provided is too weak.'),
+                          //               actions: [
+                          //                 TextButton(
+                          //                   child: Text("Ok"),
+                          //                   onPressed: () {
+                          //                     Navigator.of(context).pop();
+                          //                   },
+                          //                 )
+                          //               ],
+                          //             );
+                          //           });
+                          //       print('The password provided is too weak.');
+                          //     } else if (e.code == 'email-already-in-use') {
+                          //       showDialog(
+                          //           context: context,
+                          //           builder: (BuildContext context) {
+                          //             return AlertDialog(
+                          //               title: Text("Error"),
+                          //               content: Text(
+                          //                   'The account already exists for that email.'),
+                          //               actions: [
+                          //                 TextButton(
+                          //                   child: Text("Ok"),
+                          //                   onPressed: () {
+                          //                     Navigator.of(context).pop();
+                          //                   },
+                          //                 )
+                          //               ],
+                          //             );
+                          //           });
+                          //       print(
+                          //           'The account already exists for that email.');
+                          //     }
+                          //   } catch (e) {
+                          //     print(e);
+                          //   }
+                          //   print("auth done");
+                          // }
                         },
                         child: Text(
                           "Sign Up",

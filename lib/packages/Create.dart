@@ -2,6 +2,7 @@ import 'package:abstract_mp/packages/Questions.dart';
 import 'package:abstract_mp/service/database_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import 'dart:math';
@@ -55,6 +56,14 @@ class _CreateState extends State<Create> {
     return Scaffold(
         backgroundColor: HexColor("#012A4A"),
         appBar: AppBar(
+          title: Padding(
+            padding: const EdgeInsets.all(0.0),
+            child: SvgPicture.asset(
+              "assets/Abstract_logo.svg",
+              height: 22.0,
+              width: 30,
+            ),
+          ),
           elevation: 0,
           backgroundColor: HexColor("#012A4A"),
         ),

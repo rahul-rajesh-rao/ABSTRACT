@@ -24,7 +24,7 @@ dependencies:
   flutter:
     sdk: flutter
   hexcolor: ^2.0.4
-  firebase_auth: ^2.0.0
+  firebase_auth: ^3.0.1
   cloud_firestore: ^2.3.0
   shared_preferences: ^2.0.6
   random_string: ^2.1.0
@@ -37,6 +37,7 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  flutter_launcher_icons: ^0.9.1
 
 dev_dependencies:
   flutter_test:
@@ -82,3 +83,7 @@ flutter:
 flutter_native_splash:
   image: assets/Abstract_logo.png
   color: "012A4A"
+
+flutter_icons:
+  android: "launcher_icon"
+  image_path: "assets/Abstract_icon.png"

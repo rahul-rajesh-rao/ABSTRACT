@@ -1,14 +1,14 @@
 import 'package:abstract_mp/packages/apiquestionmodel.dart';
 import 'package:abstract_mp/packages/loading.dart';
+import 'package:abstract_mp/packages/play.dart';
 import 'package:abstract_mp/service/database_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'Quiz.dart';
 
 class StartQuiz extends StatefulWidget {
   final String quizId;
-
-  StartQuiz(this.quizId);
+  String difficulty, madeby, topic;
+  StartQuiz(this.quizId, this.topic, this.difficulty, this.madeby);
 
   @override
   _StartQuizState createState() => _StartQuizState();
@@ -21,7 +21,6 @@ class _StartQuizState extends State<StartQuiz> {
   late var questionList;
   DatabaseService databaseService = new DatabaseService();
   bool isLoading = true;
-
   @override
   void initState() {
     questionList = getQuestions();
@@ -49,7 +48,8 @@ class _StartQuizState extends State<StartQuiz> {
         future: questionList,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return Quiz(snapshot.data!);
+            return Play(
+                snapshot.data!, widget.topic, widget.difficulty, widget.madeby);
           } else if (snapshot.hasError) {
             return Text('${snapshot.error}');
           }

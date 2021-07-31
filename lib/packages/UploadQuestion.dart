@@ -1,8 +1,7 @@
+import 'package:abstract_mp/packages/QuizCreatedPage.dart';
 import 'package:abstract_mp/packages/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:abstract_mp/service/database_service.dart';
-
-import 'NavScreen.dart';
 
 DatabaseService databaseService = new DatabaseService();
 
@@ -38,7 +37,7 @@ class _UploadQuestionState extends State<UploadQuestion> {
         future: future,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return NavScreen();
+            return QuizCreatedPage();
           } else if (snapshot.hasError) {
             return Text('${snapshot.error}');
           }
@@ -46,8 +45,3 @@ class _UploadQuestionState extends State<UploadQuestion> {
         });
   }
 }
-
-// }).catchError((e) {
-//         print(e);
-//       });
-//     );

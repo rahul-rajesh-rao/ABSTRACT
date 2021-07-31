@@ -15,6 +15,7 @@ class Quiz extends StatefulWidget {
 class _QuizState extends State<Quiz> with TickerProviderStateMixin {
   late AnimationController controller;
   int _counter = 30;
+  double value = 30.00;
   Timer? _timer;
 
   void _startTimer() {
@@ -28,6 +29,9 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
           _counter--;
         } else {
           _timer.cancel();
+          setState(() {
+            selected = true;
+          });
         }
       });
     });
@@ -37,21 +41,14 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
   void initState() {
     _startTimer();
     controller = AnimationController(
-      value: 30,
+      value: 0,
       vsync: this,
       duration: const Duration(seconds: 30),
     )..addListener(() {
         setState(() {});
       });
-    controller.repeat();
+    controller.forward();
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    controller.dispose();
-
-    super.dispose();
   }
 
   int questionNo = 1, points = 0, totQues = 0;
@@ -77,7 +74,7 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
           ),
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            SizedBox(height: 50),
+            SizedBox(height: 10),
             Row(
               children: [
                 Text("Question ",
@@ -116,6 +113,9 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
                 )),
             LinearProgressIndicator(
               value: controller.value,
+              color: Colors.red,
+              backgroundColor: Colors.white,
+              minHeight: 10,
             ),
             SizedBox(
               height: 20,
@@ -140,8 +140,9 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
                 ),
               ),
               onPressed: () {
-                if (widget.questions[questionNo - 1]
-                    .isCorrect(widget.questions[questionNo - 1].answers[0])) {
+                if (widget.questions[questionNo - 1].isCorrect(
+                        widget.questions[questionNo - 1].answers[0]) &&
+                    !selected) {
                   points++;
                 }
                 setState(() {
@@ -172,8 +173,9 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
                 ),
               ),
               onPressed: () {
-                if (widget.questions[questionNo - 1]
-                    .isCorrect(widget.questions[questionNo - 1].answers[1])) {
+                if (widget.questions[questionNo - 1].isCorrect(
+                        widget.questions[questionNo - 1].answers[1]) &&
+                    !selected) {
                   points++;
                 }
                 setState(() {
@@ -204,8 +206,9 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
                 ),
               ),
               onPressed: () {
-                if (widget.questions[questionNo - 1]
-                    .isCorrect(widget.questions[questionNo - 1].answers[2])) {
+                if (widget.questions[questionNo - 1].isCorrect(
+                        widget.questions[questionNo - 1].answers[2]) &&
+                    !selected) {
                   points++;
                 }
                 setState(() {
@@ -236,8 +239,9 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
                 ),
               ),
               onPressed: () {
-                if (widget.questions[questionNo - 1]
-                    .isCorrect(widget.questions[questionNo - 1].answers[3])) {
+                if (widget.questions[questionNo - 1].isCorrect(
+                        widget.questions[questionNo - 1].answers[3]) &&
+                    !selected) {
                   points++;
                 }
                 setState(() {
@@ -263,16 +267,25 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
                   ),
                   color: Colors.white,
                   onPressed: () {
-                    _startTimer();
                     if (questionNo <= 10) questionNo += 1;
                     if (questionNo > totQues) {
+                      if (_timer!.isActive) {
+                        _timer!.cancel();
+                      }
+                      controller.dispose();
                       Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                               builder: (context) => Celebration(points)));
                     }
                     if (questionNo <= totQues) {
+                      if (_timer!.isActive) {
+                        _timer!.cancel();
+                      }
                       setState(() {
+                        controller.reset();
+                        controller.forward();
+                        _startTimer();
                         selected = false;
                       });
                     }

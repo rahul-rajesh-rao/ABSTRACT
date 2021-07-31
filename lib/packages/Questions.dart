@@ -1,7 +1,9 @@
 import 'package:abstract_mp/packages/CreateQuestionMap.dart';
+import 'package:abstract_mp/packages/NavScreen.dart';
 import 'package:abstract_mp/packages/UploadQuestion.dart';
 import 'package:abstract_mp/service/database_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'CreateQuestionMap.dart';
 
@@ -35,8 +37,7 @@ class _QuestionsState extends State<Questions> {
     opt4.clear();
   }
 
-  uploadQuestionData(bool add) {
-    //todo: add validation before submition
+  bool uploadQuestionData(bool add) {
     if (_formKey.currentState!.validate()) {
       if (add) {
         setState(() {});
@@ -54,9 +55,9 @@ class _QuestionsState extends State<Questions> {
         print(element.questionMap);
       });
       noOfQuestion++;
-    } else {
-      print("error is happening ");
+      return true;
     }
+    return false;
   }
 
   @override
@@ -65,6 +66,15 @@ class _QuestionsState extends State<Questions> {
         backgroundColor: HexColor("#012A4A"),
         appBar: AppBar(
           backgroundColor: HexColor("#012A4A"),
+          elevation: 0,
+          title: Padding(
+            padding: const EdgeInsets.all(0.0),
+            child: SvgPicture.asset(
+              "assets/Abstract_logo.svg",
+              height: 22.0,
+              width: 30,
+            ),
+          ),
         ),
         body: Form(
           key: _formKey,
@@ -110,7 +120,7 @@ class _QuestionsState extends State<Questions> {
                     maxLines: 2,
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 21,
+                      fontSize: 18,
                       fontWeight: FontWeight.w600,
                     ),
                     controller: fieldText,
@@ -145,11 +155,11 @@ class _QuestionsState extends State<Questions> {
                     height: 7,
                   ),
                   Container(
-                    height: 45,
+                    height: 47,
                     child: new TextFormField(
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 21,
+                        fontSize: 18,
                         fontWeight: FontWeight.w600,
                       ),
                       controller: opt1,
@@ -185,11 +195,11 @@ class _QuestionsState extends State<Questions> {
                     height: 7,
                   ),
                   Container(
-                    height: 45,
+                    height: 47,
                     child: new TextFormField(
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 21,
+                        fontSize: 18,
                         fontWeight: FontWeight.w600,
                       ),
                       controller: opt2,
@@ -225,11 +235,11 @@ class _QuestionsState extends State<Questions> {
                     height: 7,
                   ),
                   Container(
-                    height: 45,
+                    height: 47,
                     child: new TextFormField(
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 21,
+                        fontSize: 18,
                         fontWeight: FontWeight.w600,
                       ),
                       controller: opt3,
@@ -265,11 +275,11 @@ class _QuestionsState extends State<Questions> {
                     height: 7,
                   ),
                   Container(
-                    height: 45,
+                    height: 47,
                     child: new TextFormField(
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 21,
+                        fontSize: 18,
                         fontWeight: FontWeight.w600,
                       ),
                       controller: opt4,
@@ -298,85 +308,112 @@ class _QuestionsState extends State<Questions> {
                         color: Colors.white,
                         iconSize: 40,
                         onPressed: () {
-                          uploadQuestionData(true);
-                          print('no of question $noOfQuestion\n');
-                          print('displayed question no$questionNo\n');
-                          if (noOfQuestion >= maxQuestion) {
-                            showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    title: Text("Error"),
-                                    content:
-                                        Text("Too many questions dipshit!!"),
-                                    actions: [
-                                      TextButton(
-                                        child: Text("Ok"),
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                      )
-                                    ],
-                                  );
-                                });
-                          } else {
-                            questionNo++;
+                          if (uploadQuestionData(true)) {
+                            if (noOfQuestion >= maxQuestion) {
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: Text("Error"),
+                                      content: Text("Too many questions"),
+                                      actions: [
+                                        TextButton(
+                                          child: Text("Ok"),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                        )
+                                      ],
+                                    );
+                                  });
+                            } else {
+                              questionNo++;
+                            }
                           }
                           clearText();
                         },
                         icon: Icon(Icons.add_circle_outline_rounded)),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 70,
-                    ),
-                    child: MaterialButton(
-                      height: 50,
-                      minWidth: 230,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(30)),
-                      child: Text(
-                        "Submit",
-                        style: TextStyle(
-                          fontSize: 24,
-                          color: Colors.black,
+                  Row(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                        ),
+                        child: MaterialButton(
+                            height: 50,
+                            minWidth: 160,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: new BorderRadius.circular(30)),
+                            child: Text(
+                              "Cancel",
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.black,
+                              ),
+                            ),
+                            color: Colors.red,
+                            onPressed: () {
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => NavScreen()));
+                            }),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                        ),
+                        child: MaterialButton(
+                          height: 50,
+                          minWidth: 160,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(30)),
+                          child: Text(
+                            "Submit",
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.black,
+                            ),
+                          ),
+                          color: Colors.white,
+                          onPressed: () {
+                            if (noOfQuestion < questionNo) {
+                              uploadQuestionData(false);
+                            }
+                            if (noOfQuestion > 1 &&
+                                noOfQuestion <= maxQuestion) {
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => UploadQuestion(
+                                          finQuestionMap,
+                                          widget.quizId,
+                                          widget.quizData)));
+                            } else if (noOfQuestion < 1) {
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: Text("Error"),
+                                      content: Text(
+                                          "Atleast 5 questions must be added to create a quiz"),
+                                      actions: [
+                                        TextButton(
+                                          child: Text("Ok"),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                        )
+                                      ],
+                                    );
+                                  });
+                            }
+                          },
                         ),
                       ),
-                      color: Colors.white,
-                      onPressed: () {
-                        if (noOfQuestion < questionNo) {
-                          uploadQuestionData(false);
-                        }
-                        if (noOfQuestion > 1 && noOfQuestion <= maxQuestion) {
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => UploadQuestion(
-                                      finQuestionMap,
-                                      widget.quizId,
-                                      widget.quizData)));
-                        } else if (noOfQuestion < 1) {
-                          showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  title: Text("Error"),
-                                  content: Text(
-                                      "Hey you.Yes you there, listen up lad there aren't enough question added to call this mess that you have created a quiz"),
-                                  actions: [
-                                    TextButton(
-                                      child: Text("Ok"),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                    )
-                                  ],
-                                );
-                              });
-                        }
-                      },
-                    ),
-                  ),
+                    ],
+                  )
                 ],
               ),
             ),

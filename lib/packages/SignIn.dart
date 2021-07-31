@@ -1,6 +1,7 @@
 import 'package:abstract_mp/packages/SignUp.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import 'NavScreen.dart';
@@ -118,7 +119,45 @@ class _SignInState extends State<SignIn> {
                       Padding(
                         padding: const EdgeInsets.fromLTRB(0, 0, 205, 5),
                         child: TextButton(
-                          onPressed: () {},
+                          onPressed: () async {
+                            try {
+                              await FirebaseAuth.instance
+                                  .sendPasswordResetEmail(email: email);
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: Text("Alert"),
+                                      content: Text('Check Your mail.'),
+                                      actions: [
+                                        TextButton(
+                                          child: Text("Ok"),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                        )
+                                      ],
+                                    );
+                                  });
+                            } on FirebaseAuthException catch (e) {
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: Text("Alert"),
+                                      content: Text(e.message!),
+                                      actions: [
+                                        TextButton(
+                                          child: Text("Ok"),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                        )
+                                      ],
+                                    );
+                                  });
+                            }
+                          },
                           child: Text(
                             "Forgot Password",
                             style: TextStyle(
@@ -213,10 +252,13 @@ class _SignInState extends State<SignIn> {
                                     await FirebaseAuth.instance
                                         .signInWithEmailAndPassword(
                                             email: email, password: password);
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => NavScreen()));
+                                SchedulerBinding.instance!
+                                    .addPostFrameCallback((_) {
+                                  Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => NavScreen()));
+                                });
                               } on FirebaseAuthException catch (e) {
                                 if (e.code == 'user-not-found') {
                                   showDialog(
